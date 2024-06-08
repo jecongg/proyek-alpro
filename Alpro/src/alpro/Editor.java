@@ -9,6 +9,10 @@ import tile.AssetParent;
 import tile.Rumput;
 import tile.Api;
 import tile.Es;
+import tile.SpringTrap;
+import tile.Teleport;
+import tile.Heal;
+import tile.Batu;
 import tile.Tile;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -28,7 +32,7 @@ import javax.swing.border.Border;
  * @author jason
  */
 public class Editor extends javax.swing.JFrame {
-    BufferedImage rumput, es, api;
+    BufferedImage rumput, es, api, springtrap, teleport, heal, batu;
     ArrayList<ArrayList<Tile>> listTile;
     ArrayList<Tile> template;
     int x, y;
@@ -41,6 +45,10 @@ public class Editor extends javax.swing.JFrame {
             rumput = ImageIO.read(new File("src/Assets/rumput.jpeg"));
             es = ImageIO.read(new File("src/Assets/es.jpeg"));
             api = ImageIO.read(new File("src/Assets/api.jpeg"));
+            springtrap = ImageIO.read(new File("src/Assets/SpringTrap.jpg"));
+            teleport = ImageIO.read(new File("src/Assets/Teleport.jpg"));
+            heal = ImageIO.read(new File("src/Assets/heal.png"));
+            batu = ImageIO.read(new File("src/Assets/batu.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,7 +81,7 @@ public class Editor extends javax.swing.JFrame {
         }
         printTile();
         int counter=0;
-        for(int j=0; j<3; j++){
+        for(int j=0; j<4; j++){
             for(int i=0; i<2; i++){
                 AssetParent ap=null;
                 if(counter==0){
@@ -85,18 +93,30 @@ public class Editor extends javax.swing.JFrame {
                 else if(counter==2){
                     ap=new Es(es);
                 }
-                else{
-                    ap=new Rumput(rumput);
+                else if(counter==3){
+                    ap=new SpringTrap(springtrap);
                 }
-                ap.setBounds(560 + ap.size*i + 10*i, 30 + ap.size*j + 10*j, ap.size, ap.size);
-                char temp=ap.tipe;
-                ap.addMouseListener(new java.awt.event.MouseAdapter() {
-                    public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        lagiMegang=temp;
-                    }
-                });
-                this.add(ap);
-                counter++;
+                else if(counter==4){
+                    ap=new Teleport(teleport);
+                }
+                else if(counter==5){
+                    ap=new Heal(heal);
+                }
+                else if(counter==6){
+                    ap=new Batu(batu);
+                }
+                if(counter!=7){
+                    ap.setBounds(560 + ap.size*i + 10*i, 30 + ap.size*j + 10*j, ap.size, ap.size);
+                    char temp=ap.tipe;
+                    ap.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                            lagiMegang=temp;
+                        }
+                    });
+                    this.add(ap);
+                    counter++;
+                }
+                
             }
         }
         
@@ -104,7 +124,7 @@ public class Editor extends javax.swing.JFrame {
     
     public Tile buatTile(){
         Border b = BorderFactory.createLineBorder(Color.WHITE);
-        Tile p = new Tile(rumput, api, es);
+        Tile p = new Tile(rumput, api, es, springtrap, teleport, heal, batu);
         p.setBackground(Color.BLACK);
         p.setBorder(b);
 
@@ -312,27 +332,27 @@ public class Editor extends javax.swing.JFrame {
                 .addComponent(utamaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(kananButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                         .addComponent(saveButton)
-                        .addGap(48, 48, 48))))
+                        .addGap(48, 48, 48))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(kananButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(atasButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(utamaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bawahButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(210, 210, 210)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(kananButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(106, 106, 106)
                         .addComponent(saveButton)
                         .addGap(93, 93, 93))))
             .addGroup(layout.createSequentialGroup()

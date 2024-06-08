@@ -5,10 +5,20 @@
  */
 package tile;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import javax.swing.JPanel;
+
 /**
  *
  * @author jason
  */
-public class Teleport {
+public class Teleport extends AssetParent {
+
+    public Teleport(BufferedImage gambar) {
+        this.gambar = gambar;
+        repaint();
+        tipe='t';
+    }
     
 }

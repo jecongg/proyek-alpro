@@ -13,12 +13,12 @@ import javax.swing.JPanel;
  *
  * @author jason
  */
-public class Batu extends AssetParent {
+public class SpringTrap extends AssetParent {
 
-    public Batu(BufferedImage gambar) {
+    public SpringTrap(BufferedImage gambar) {
         this.gambar = gambar;
         repaint();
-        tipe='b';
+        tipe='s';
     }
     
 }
