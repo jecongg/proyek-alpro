@@ -13,6 +13,8 @@ import tile.SpringTrap;
 import tile.Teleport;
 import tile.Heal;
 import tile.Batu;
+import tile.Start;
+import tile.Finish;
 import tile.Tile;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -32,7 +34,7 @@ import javax.swing.border.Border;
  * @author jason
  */
 public class Editor extends javax.swing.JFrame {
-    BufferedImage rumput, es, api, springtrap, teleport, heal, batu;
+    BufferedImage rumput, es, api, springtrap, teleport, heal, batu, start, finish;
     ArrayList<ArrayList<Tile>> listTile;
     ArrayList<Tile> template;
     int x, y;
@@ -49,6 +51,8 @@ public class Editor extends javax.swing.JFrame {
             teleport = ImageIO.read(new File("src/Assets/Teleport.jpg"));
             heal = ImageIO.read(new File("src/Assets/heal.png"));
             batu = ImageIO.read(new File("src/Assets/batu.jpg"));
+            start = ImageIO.read(new File("src/Assets/start.png"));
+            finish = ImageIO.read(new File("src/Assets/finish.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,7 +85,7 @@ public class Editor extends javax.swing.JFrame {
         }
         printTile();
         int counter=0;
-        for(int j=0; j<4; j++){
+        for(int j=0; j<5; j++){
             for(int i=0; i<2; i++){
                 AssetParent ap=null;
                 if(counter==0){
@@ -105,17 +109,26 @@ public class Editor extends javax.swing.JFrame {
                 else if(counter==6){
                     ap=new Batu(batu);
                 }
-                if(counter!=7){
+                else if(counter==7){
+                    ap=new Start(start);
+                }
+                else if(counter==8){
+                    ap=new Finish(finish);
+                }
+                if(counter<9){
                     ap.setBounds(560 + ap.size*i + 10*i, 30 + ap.size*j + 10*j, ap.size, ap.size);
                     char temp=ap.tipe;
                     ap.addMouseListener(new java.awt.event.MouseAdapter() {
                         public void mouseClicked(java.awt.event.MouseEvent evt) {
                             lagiMegang=temp;
+                            System.out.println(lagiMegang);
                         }
                     });
                     this.add(ap);
                     counter++;
                 }
+                    
+                
                 
             }
         }
@@ -124,7 +137,7 @@ public class Editor extends javax.swing.JFrame {
     
     public Tile buatTile(){
         Border b = BorderFactory.createLineBorder(Color.WHITE);
-        Tile p = new Tile(rumput, api, es, springtrap, teleport, heal, batu);
+        Tile p = new Tile(rumput, api, es, springtrap, teleport, heal, batu, start, finish);
         p.setBackground(Color.BLACK);
         p.setBorder(b);
 

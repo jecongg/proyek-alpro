@@ -25,6 +25,12 @@ public class Play extends javax.swing.JFrame {
     BufferedImage rumput;
     BufferedImage api;
     BufferedImage es;
+    BufferedImage springtrap;
+    BufferedImage teleport;
+    BufferedImage heal;
+    BufferedImage batu;
+    BufferedImage start;
+    BufferedImage finish;
     
     public Play() {
         initComponents();

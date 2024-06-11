@@ -3,14 +3,29 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/File/output.txt</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/alpro/Alpro.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/alpro/PlayPanel.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/Tile.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/Batu.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/alpro/Play.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/Assets/batu.jpg</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/Teleport.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/Rumput.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/SpringTrap.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/Assets/Finish.png</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/Assets/Teleport.jpg</file>
             <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/alpro/Editor.java</file>
             <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/Assets/es.jpeg</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/Api.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/Es.java</file>
             <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/Assets/rumput.jpeg</file>
-            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/Assets/portal.jpg</file>
-            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/alpro/Alpro.java</file>
-            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/Assets/batu.jpg</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/AssetParent.java</file>
             <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/Assets/player.png</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/Start.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/Finish.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/Assets/Start.png</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/tile/Heal.java</file>
+            <file>file:/C:/Users/Puk4s/OneDrive/Documents/GitHub/proyekalpro/Alpro/src/File/output.txt</file>
         </group>
     </open-files>
 </project-private>

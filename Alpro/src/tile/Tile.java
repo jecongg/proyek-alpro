@@ -24,16 +24,20 @@ public class Tile extends JPanel{
     public BufferedImage teleport;
     public BufferedImage heal;
     public BufferedImage batu;
+    public BufferedImage start;
+    public BufferedImage finish;
     public char tipe;
     
-    public Tile(BufferedImage rumput, BufferedImage api, BufferedImage es, BufferedImage springtrap, BufferedImage teleport, BufferedImage heal, BufferedImage batu) {
+    public Tile(BufferedImage rumput, BufferedImage api, BufferedImage es, BufferedImage springtrap, BufferedImage teleport, BufferedImage heal, BufferedImage batu, BufferedImage start, BufferedImage finish) {
         this.rumput = rumput;
         this.api=api;
         this.es=es;
-        this.es=springtrap;
-        this.es=teleport;
-        this.es=heal;
-        this.es=batu;
+        this.springtrap=springtrap;
+        this.teleport=teleport;
+        this.heal=heal;
+        this.batu=batu;
+        this.start=start;
+        this.finish=finish;
         tipe='k';
         repaint();
     }
@@ -57,8 +61,7 @@ public class Tile extends JPanel{
         }
         else if(tipe=='e'){
             if (es != null) {
-                g.drawImage(es, 0, 0, 30, 30, null);
-            }
+                g.drawImage(es, 0, 0, 30, 30, null);  
         }
         else if(tipe=='s'){
             if (springtrap != null) {
@@ -78,6 +81,16 @@ public class Tile extends JPanel{
         else if(tipe=='b'){
             if (batu != null) {
                 g.drawImage(batu, 0, 0, 30, 30, null);
+            }
+        }
+        else if(tipe=='g'){
+            if (start != null) {
+                g.drawImage(start, 0, 0, 30, 30, null);
+            }
+        }
+        else if(tipe=='f'){
+            if (finish != null) {
+                g.drawImage(finish, 0, 0, 30, 30, null);
             }
         }
         else{

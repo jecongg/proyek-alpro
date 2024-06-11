@@ -17,6 +17,12 @@ public class PlayPanel extends JPanel {
     BufferedImage rumput;
     BufferedImage api;
     BufferedImage es;
+    BufferedImage springtrap;
+    BufferedImage teleport;
+    BufferedImage heal;
+    BufferedImage batu;
+    BufferedImage start;
+    BufferedImage finish;
     BufferedImage player;
     int tileSize = 70;
     int worldPlayerX, worldPlayerY, screenPlayerX, screenPlayerY;
@@ -95,6 +101,12 @@ public class PlayPanel extends JPanel {
             rumput = ImageIO.read(new File("src/Assets/rumput.jpeg"));
             es = ImageIO.read(new File("src/Assets/es.jpeg"));
             api = ImageIO.read(new File("src/Assets/api.jpeg"));
+            springtrap = ImageIO.read(new File("src/Assets/SpringTrap.jpg"));
+            teleport = ImageIO.read(new File("src/Assets/Teleport.jpg"));
+            heal = ImageIO.read(new File("src/Assets/heal.png"));
+            batu = ImageIO.read(new File("src/Assets/batu.jpg"));
+            start = ImageIO.read(new File("src/Assets/start.png"));
+            finish = ImageIO.read(new File("src/Assets/finish.png"));
             player = ImageIO.read(new File("src/Assets/player.png"));
         } catch (IOException ex) {
             Logger.getLogger(PlayPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,6 +159,24 @@ public class PlayPanel extends JPanel {
                 }
                 else if (map[i][j] == 'e') {
                     g.drawImage(es, screenX, screenY, tileSize, tileSize, null);
+                }
+                else if (map[i][j] == 's') {
+                    g.drawImage(springtrap, screenX, screenY, tileSize, tileSize, null);
+                }
+                else if (map[i][j] == 't') {
+                    g.drawImage(teleport, screenX, screenY, tileSize, tileSize, null);
+                }
+                else if (map[i][j] == 'h') {
+                    g.drawImage(heal, screenX, screenY, tileSize, tileSize, null);
+                }
+                else if (map[i][j] == 'b') {
+                    g.drawImage(batu, screenX, screenY, tileSize, tileSize, null);
+                }
+                else if (map[i][j] == 'g') {
+                    g.drawImage(start, screenX, screenY, tileSize, tileSize, null);
+                }
+                else if (map[i][j] == 'f') {
+                    g.drawImage(finish, screenX, screenY, tileSize, tileSize, null);
                 }
             }
         }
