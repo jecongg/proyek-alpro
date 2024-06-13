@@ -18,7 +18,7 @@ public class Es extends AssetParent {
     public Es(BufferedImage gambar) {
         this.gambar = gambar;
         repaint();
-        tipe='e';
+        tipe="e";
     }
     
 }

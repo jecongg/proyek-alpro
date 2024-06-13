@@ -18,7 +18,7 @@ public class Start extends AssetParent {
     public Start(BufferedImage gambar) {
         this.gambar = gambar;
         repaint();
-        tipe='g';
+        tipe="s";
     }
     
 }

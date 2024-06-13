@@ -26,7 +26,7 @@ public class Tile extends JPanel{
     public BufferedImage batu;
     public BufferedImage start;
     public BufferedImage finish;
-    public char tipe;
+    public String tipe;
     
     public Tile(BufferedImage rumput, BufferedImage api, BufferedImage es, BufferedImage springtrap, BufferedImage teleport, BufferedImage heal, BufferedImage batu, BufferedImage start, BufferedImage finish) {
         this.rumput = rumput;
@@ -38,69 +38,70 @@ public class Tile extends JPanel{
         this.batu=batu;
         this.start=start;
         this.finish=finish;
-        tipe='k';
+        tipe="k";
         repaint();
     }
     
-    public void ubah(char tipe){
+    public void ubah(String tipe){
         this.tipe=tipe;
         repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        if(tipe=='r'){
+        if(tipe=="r"){
             if (rumput != null) {
                 g.drawImage(rumput, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=='a'){
+        else if(tipe=="a"){
             if (api != null) {
                 g.drawImage(api, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=='e'){
+        else if(tipe=="e"){
             if (es != null) {
-                g.drawImage(es, 0, 0, 30, 30, null);  
+                g.drawImage(es, 0, 0, 30, 30, null);
+            }
         }
-        else if(tipe=='s'){
+        else if(tipe=="t"){
             if (springtrap != null) {
                 g.drawImage(springtrap, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=='t'){
-            if (teleport != null) {
-                g.drawImage(teleport, 0, 0, 30, 30, null);
-            }
-        }
-        else if(tipe=='h'){
+        else if(tipe=="h"){
             if (heal != null) {
                 g.drawImage(heal, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=='b'){
+        else if(tipe=="b"){
             if (batu != null) {
                 g.drawImage(batu, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=='g'){
+        else if(tipe=="s"){
             if (start != null) {
                 g.drawImage(start, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=='f'){
+        else if(tipe=="g"){
             if (finish != null) {
                 g.drawImage(finish, 0, 0, 30, 30, null);
             }
         }
-        else{
+        else if(tipe=="k"){
             super.paintComponent(g);
         }
+        else{
+            if (teleport != null) {
+                g.drawImage(teleport, 0, 0, 30, 30, null);
+            }
+        }
     }
-
+    
     @Override
     public String toString() {
-        return tipe + "";
+        return tipe;
     }
     
 }

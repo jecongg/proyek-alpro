@@ -18,7 +18,7 @@ public class Rumput extends AssetParent {
     public Rumput(BufferedImage gambar) {
         this.gambar = gambar;
         repaint();
-        tipe='r';
+        tipe="r";
     }
     
 }

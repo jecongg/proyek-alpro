@@ -18,7 +18,7 @@ public class SpringTrap extends AssetParent {
     public SpringTrap(BufferedImage gambar) {
         this.gambar = gambar;
         repaint();
-        tipe='s';
+        tipe="t";
     }
     
 }

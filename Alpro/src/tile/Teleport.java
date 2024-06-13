@@ -18,7 +18,7 @@ public class Teleport extends AssetParent {
     public Teleport(BufferedImage gambar) {
         this.gambar = gambar;
         repaint();
-        tipe='t';
+        tipe="tele";
     }
     
 }

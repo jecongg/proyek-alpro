@@ -18,7 +18,7 @@ public class Finish extends AssetParent {
     public Finish(BufferedImage gambar) {
         this.gambar = gambar;
         repaint();
-        tipe='f';
+        tipe="g";
     }
     
 }

@@ -5,16 +5,13 @@
  */
 package alpro;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -22,6 +19,8 @@ import javax.imageio.ImageIO;
  */
 public class Play extends javax.swing.JFrame {
     char map[][];
+    boolean mulai;
+    PlayPanel panel;
     BufferedImage rumput;
     BufferedImage api;
     BufferedImage es;
@@ -34,9 +33,18 @@ public class Play extends javax.swing.JFrame {
     
     public Play() {
         initComponents();
+//        this.mulai=mulai;
+//        this.setVisible(true);
         PlayPanel p = new PlayPanel();
         p.setBounds(0, 0, 714, 508);
         this.add(p);
+        this.panel=p;
+        panel.add(backtrackButton);
+        panel.add(speedUpButton);
+        panel.add(speedDownButton);
+        backtrackButton.setBounds(10, 450, 30, 30);
+//        this.setComponentZOrder(backtrackButton, 1);
+        repaint();
     }
     
     public void bacaFile(){
@@ -69,21 +77,72 @@ public class Play extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        backtrackButton = new javax.swing.JButton();
+        speedUpButton = new javax.swing.JButton();
+        speedDownButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        backtrackButton.setText("BACKTRACK");
+        backtrackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backtrackButtonActionPerformed(evt);
+            }
+        });
+
+        speedUpButton.setText("+");
+        speedUpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                speedUpButtonActionPerformed(evt);
+            }
+        });
+
+        speedDownButton.setText("-");
+        speedDownButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                speedDownButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 714, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(backtrackButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(speedUpButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(speedDownButton)
+                .addContainerGap(499, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(464, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backtrackButton)
+                    .addComponent(speedUpButton)
+                    .addComponent(speedDownButton))
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backtrackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backtrackButtonActionPerformed
+        panel.mulaiBacktrack();
+        backtrackButton.setEnabled(false);
+    }//GEN-LAST:event_backtrackButtonActionPerformed
+
+    private void speedUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speedUpButtonActionPerformed
+        panel.speedUp();
+    }//GEN-LAST:event_speedUpButtonActionPerformed
+
+    private void speedDownButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speedDownButtonActionPerformed
+        panel.speedDown();
+    }//GEN-LAST:event_speedDownButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,5 +180,8 @@ public class Play extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backtrackButton;
+    private javax.swing.JButton speedDownButton;
+    private javax.swing.JButton speedUpButton;
     // End of variables declaration//GEN-END:variables
 }

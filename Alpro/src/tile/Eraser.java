@@ -5,20 +5,18 @@
  */
 package tile;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import javax.swing.JPanel;
 
 /**
  *
  * @author jason
  */
-public class Heal extends AssetParent {
-
-    public Heal(BufferedImage gambar) {
+public class Eraser extends AssetParent {
+    
+    public Eraser(BufferedImage gambar) {
         this.gambar = gambar;
         repaint();
-        tipe="h";
+        tipe="k";
     }
     
 }

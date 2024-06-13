@@ -18,7 +18,7 @@ public class Batu extends AssetParent {
     public Batu(BufferedImage gambar) {
         this.gambar = gambar;
         repaint();
-        tipe='b';
+        tipe="b";
     }
     
 }

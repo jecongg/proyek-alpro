@@ -17,32 +17,43 @@ import tile.Start;
 import tile.Finish;
 import tile.Tile;
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
+import tile.Eraser;
 
 /**
  *
  * @author jason
  */
 public class Editor extends javax.swing.JFrame {
-    BufferedImage rumput, es, api, springtrap, teleport, heal, batu, start, finish;
+    BufferedImage rumput, es, api, springtrap, teleport, heal, batu, start, finish, eraser;
     ArrayList<ArrayList<Tile>> listTile;
     ArrayList<Tile> template;
-    int x, y;
-    char lagiMegang;
+    ArrayList<EdgeTele> listEdge;
+    int x, y, nomor;
+    String lagiMegang;
+    boolean pertama, kedua;
+    boolean klik;
+    boolean startDone, finishDone;
+    Tile tempTele;
     
     public Editor() {
         listTile=new ArrayList<>();
         template=new ArrayList<>();
+        listEdge=new ArrayList<>();
+        nomor=0;
+        klik=false;
+        pertama=true;
+        lagiMegang="k";
         try {
             rumput = ImageIO.read(new File("src/Assets/rumput.jpeg"));
             es = ImageIO.read(new File("src/Assets/es.jpeg"));
@@ -53,6 +64,7 @@ public class Editor extends javax.swing.JFrame {
             batu = ImageIO.read(new File("src/Assets/batu.jpg"));
             start = ImageIO.read(new File("src/Assets/start.png"));
             finish = ImageIO.read(new File("src/Assets/finish.png"));
+            eraser = ImageIO.read(new File("src/Assets/eraser.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,20 +73,10 @@ public class Editor extends javax.swing.JFrame {
         initComponents();
         initAwal();
     }
-    
-    public void printList(){
-//       for(int i=0; i<14; i++){
-//           for(int j=0; j<14; j++){
-//               System.out.print(listTipe.get(i).get(j));
-//           }
-//           System.out.println("");
-//       }
-
-//        listTile.get(0).set(0, 'a');
-        System.out.println(listTile);
-    }
+  
     
     public void initAwal(){
+        bawahButton.setText("\u2227");
         for(int i=0; i<15; i++){
             listTile.add(new ArrayList<>());
             for(int j=0; j<16; j++){
@@ -115,11 +117,18 @@ public class Editor extends javax.swing.JFrame {
                 else if(counter==8){
                     ap=new Finish(finish);
                 }
-                if(counter<9){
+                else if(counter==9){
+                    ap=new Eraser(eraser);
+                }
+                if(counter<=9){
                     ap.setBounds(560 + ap.size*i + 10*i, 30 + ap.size*j + 10*j, ap.size, ap.size);
-                    char temp=ap.tipe;
+                    String temp=ap.tipe;
                     ap.addMouseListener(new java.awt.event.MouseAdapter() {
                         public void mouseClicked(java.awt.event.MouseEvent evt) {
+                            if(!pertama){
+                                tempTele.ubah("k");
+                                pertama=true;
+                            }
                             lagiMegang=temp;
                             System.out.println(lagiMegang);
                         }
@@ -127,9 +136,6 @@ public class Editor extends javax.swing.JFrame {
                     this.add(ap);
                     counter++;
                 }
-                    
-                
-                
             }
         }
         
@@ -141,12 +147,84 @@ public class Editor extends javax.swing.JFrame {
         p.setBackground(Color.BLACK);
         p.setBorder(b);
 
-        p.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p.ubah(lagiMegang);
+        p.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                klik=true;
+                ubahTile(p);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                klik=false;
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if(klik && !lagiMegang.equals("tele")){
+                    ubahTile(p);
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
             }
         });
         return p;
+    }
+    
+    public void ubahTile(Tile p){
+        if("tele".equals(lagiMegang)){
+            if(pertama){
+                p.ubah(nomor+"");
+                tempTele=p;
+                pertama=false;
+            }
+            else if (!p.equals(tempTele)){
+                p.ubah(nomor+"");
+                pertama=true;
+                listEdge.add(new EdgeTele(nomor, tempTele, p));
+                nomor++;
+            }
+        }
+        else {
+            if(Character.isDigit(p.tipe.charAt(0))){
+                EdgeTele temp=null;
+                for(EdgeTele ed : listEdge){
+                    if(p.tipe.equals(ed.nomor+"")){
+                        ed.a.ubah("k");
+                        ed.b.ubah("k");
+                        temp=ed;
+                    }
+                }
+                listEdge.remove(temp);
+            }
+            else if(p.tipe.equals("s") && !lagiMegang.equals("s")){
+                startDone=false;
+                p.ubah("k");
+            }
+            else if(p.tipe.equals("g") && !lagiMegang.equals("g")){
+                finishDone=false;
+                p.ubah("k");
+            }
+            if(lagiMegang.equals("s") && !startDone){
+                startDone=true;
+                p.ubah(lagiMegang);
+            }
+            else if(lagiMegang.equals("g") && !finishDone){
+                finishDone=true;
+                p.ubah(lagiMegang);
+            }
+            else if(!lagiMegang.equals("g") && !lagiMegang.equals("s")){
+                p.ubah(lagiMegang);
+            }
+        }
     }
     
     public void printTile(){
@@ -210,7 +288,7 @@ public class Editor extends javax.swing.JFrame {
         boolean ketemuAtas=false;
         for(int i=0; i<listTile.size(); i++){
             for(int j=0; j<listTile.get(0).size(); j++){
-                if(listTile.get(i).get(j).tipe!='k'){
+                if(listTile.get(i).get(j).tipe!="k"){
                     if(!ketemuAtas){
                         ketemuAtas=true;
                         atas=i;
@@ -224,7 +302,7 @@ public class Editor extends javax.swing.JFrame {
         int kanan=-1;
         for(int i=0; i<listTile.get(0).size(); i++){
             for(int j=0; j<listTile.size(); j++){
-                if(listTile.get(j).get(i).tipe!='k'){
+                if(listTile.get(j).get(i).tipe!="k"){
                     if(!ketemuKiri){
                         ketemuKiri=true;
                         kiri=i;
@@ -247,7 +325,7 @@ public class Editor extends javax.swing.JFrame {
         try (FileOutputStream fos = new FileOutputStream(fileName)) {
             for(int i=atas; i<=bawah; i++){
                 for(int j=kiri; j<=kanan; j++){
-                    String temp = listTile.get(i).get(j).tipe +"";
+                    String temp = listTile.get(i).get(j).tipe + " ";
                     fos.write(temp.getBytes());
                 }
                 fos.write(System.lineSeparator().getBytes());
@@ -304,14 +382,14 @@ public class Editor extends javax.swing.JFrame {
             }
         });
 
-        bawahButton.setText("bawah");
+        bawahButton.setText("^");
         bawahButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bawahButtonActionPerformed(evt);
             }
         });
 
-        kananButton.setText("kanan");
+        kananButton.setText(">");
         kananButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kananButtonActionPerformed(evt);
@@ -330,15 +408,6 @@ public class Editor extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(269, 269, 269)
-                        .addComponent(atasButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(263, 263, 263)
-                        .addComponent(bawahButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(kiriButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -352,26 +421,37 @@ public class Editor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(kananButton)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(269, 269, 269)
+                        .addComponent(atasButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(266, 266, 266)
+                        .addComponent(bawahButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(atasButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(utamaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bawahButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(kananButton)
-                        .addGap(106, 106, 106)
-                        .addComponent(saveButton)
-                        .addGap(93, 93, 93))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(240, 240, 240)
-                .addComponent(kiriButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(utamaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bawahButton))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(kananButton)
+                                .addGap(106, 106, 106)
+                                .addComponent(saveButton)
+                                .addGap(93, 93, 93))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(kiriButton)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();

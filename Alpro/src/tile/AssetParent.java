@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class AssetParent extends JPanel{
     public BufferedImage gambar;
     public int size = 50;
-    public char tipe='k';
+    public String tipe="k";
     
     @Override
     protected void paintComponent(Graphics g) {

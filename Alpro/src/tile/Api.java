@@ -18,7 +18,7 @@ public class Api extends AssetParent {
     public Api(BufferedImage gambar) {
         this.gambar = gambar;
         repaint();
-        tipe='a';
+        tipe="a";
     }
     
 }
