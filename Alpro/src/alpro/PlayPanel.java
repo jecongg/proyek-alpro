@@ -70,7 +70,7 @@ public class PlayPanel extends JPanel {
                 int yTemp = y + tambahY[i];
                 int xTemp = x + tambahX[i];
                 if (xTemp >= 0 && yTemp >= 0 && xTemp < map[0].length && yTemp < map.length) {
-                    if (!isVisited[yTemp][xTemp] && map[yTemp][xTemp] != "b" && map[yTemp][xTemp] != "k") {
+                    if (!isVisited[yTemp][xTemp] && !map[yTemp][xTemp].equals("b") && !map[yTemp][xTemp].equals("k")) {
                         isVisited[yTemp][xTemp] = true;
                         move(i);
                         while (moving) {
@@ -93,7 +93,15 @@ public class PlayPanel extends JPanel {
                             map[yTemp][xTemp] = "r";
                             boolean tempVisited[][] = isVisited;
                             isVisited=new boolean[map.length][map[0].length];
+                            int tempX=worldPlayerX;
+                            int tempY=worldPlayerY;
+                            worldPlayerX=startPlayerX*tileSize;
+                            worldPlayerY=startPlayerY*tileSize;
+                            repaint();
                             temp = backtrack(startPlayerX, startPlayerY, langkah + 1, lives);
+                            worldPlayerX=tempX;
+                            worldPlayerY=tempY;
+                            repaint();
                             isVisited=tempVisited;
                             map[yTemp][xTemp] = "t";
                         }
@@ -103,7 +111,39 @@ public class PlayPanel extends JPanel {
                         else if ("r".equals(map[yTemp][xTemp])) {
                             temp = backtrack(xTemp, yTemp, langkah + 1, lives);
                         }
-                        else {
+                        else if(Character.isDigit(map[yTemp][xTemp].charAt(0))){
+                            int xCari=0;
+                            int yCari=0;
+                            for(int k=0; k<map.length; k++){
+                                for(int j=0; j<map[0].length; j++){
+                                    if(map[yTemp][xTemp].equals(map[k][j])){
+                                        if(k!=yTemp && j!=xTemp){
+                                            xCari=j;
+                                            yCari=k;
+                                            System.out.println(xCari + " " + yCari);
+                                        }
+                                    }
+                                }
+                            }
+                            int tempX=worldPlayerX;
+                            int tempY=worldPlayerY;
+                            worldPlayerX=xCari*tileSize;
+                            worldPlayerY=yCari*tileSize;
+                            repaint();
+                            String tempTele=map[yTemp][xTemp];
+                            map[yTemp][xTemp]="r";
+                            map[yCari][xCari]="r";
+                            boolean[][] tempVisited=isVisited.clone();
+                            isVisited=new boolean[map.length][map[0].length];
+                            temp = backtrack(xCari, yCari, langkah + 1, lives);
+                            worldPlayerX=tempX;
+                            worldPlayerY=tempY;
+                            repaint();
+                            isVisited=tempVisited;
+                            map[yTemp][xTemp]=tempTele;
+                            map[yCari][xCari]=tempTele;
+                        }
+                        else{
                             temp = backtrack(xTemp, yTemp, langkah + 1, lives);
                         }
                         if (pertama && temp != -1 && temp != 0) {
@@ -154,9 +194,15 @@ public class PlayPanel extends JPanel {
     
     public void speedUp(){
         tambah+=10;
+        if(tambah>tileSize){
+            tambah=tileSize;
+        }
     }
     public void speedDown(){
         tambah-=10;
+        if(tambah<1){
+            tambah=1;
+        }
     }
 
     public void move(int arah) {

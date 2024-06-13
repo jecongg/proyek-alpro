@@ -5,6 +5,7 @@
  */
 package alpro;
 
+import com.sun.deploy.uitoolkit.impl.fx.ui.FXUIFactory;
 import tile.AssetParent;
 import tile.Rumput;
 import tile.Api;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import tile.Eraser;
 
@@ -138,7 +140,6 @@ public class Editor extends javax.swing.JFrame {
                 }
             }
         }
-        
     }
     
     public Tile buatTile(){
@@ -283,57 +284,60 @@ public class Editor extends javax.swing.JFrame {
     }
     
     public void save(){
-        int atas=-1;
-        int bawah=-1;
-        boolean ketemuAtas=false;
-        for(int i=0; i<listTile.size(); i++){
-            for(int j=0; j<listTile.get(0).size(); j++){
-                if(listTile.get(i).get(j).tipe!="k"){
-                    if(!ketemuAtas){
-                        ketemuAtas=true;
-                        atas=i;
+        if(!nameFile.getText().equals("")){
+            int atas=-1;
+            int bawah=-1;
+            boolean ketemuAtas=false;
+            for(int i=0; i<listTile.size(); i++){
+                for(int j=0; j<listTile.get(0).size(); j++){
+                    if(listTile.get(i).get(j).tipe!="k"){
+                        if(!ketemuAtas){
+                            ketemuAtas=true;
+                            atas=i;
+                        }
+                        bawah=i;
                     }
-                    bawah=i;
                 }
             }
-        }
-        boolean ketemuKiri=false;
-        int kiri=-1;
-        int kanan=-1;
-        for(int i=0; i<listTile.get(0).size(); i++){
-            for(int j=0; j<listTile.size(); j++){
-                if(listTile.get(j).get(i).tipe!="k"){
-                    if(!ketemuKiri){
-                        ketemuKiri=true;
-                        kiri=i;
+            boolean ketemuKiri=false;
+            int kiri=-1;
+            int kanan=-1;
+            for(int i=0; i<listTile.get(0).size(); i++){
+                for(int j=0; j<listTile.size(); j++){
+                    if(listTile.get(j).get(i).tipe!="k"){
+                        if(!ketemuKiri){
+                            ketemuKiri=true;
+                            kiri=i;
+                        }
+                        kanan=i;
                     }
-                    kanan=i;
                 }
             }
-        }
-        
-        
-        
-        String fileName = "src/File/output.txt";
+            
+            String fileName = "src/File/" +nameFile.getText()+".txt";
 
-        // Create the directory if it doesn't exist
-        File directory = new File("src/File");
-        if (!directory.exists()) {
-            directory.mkdirs(); // Create the directory
-        }
-        
-        try (FileOutputStream fos = new FileOutputStream(fileName)) {
-            for(int i=atas; i<=bawah; i++){
-                for(int j=kiri; j<=kanan; j++){
-                    String temp = listTile.get(i).get(j).tipe + " ";
-                    fos.write(temp.getBytes());
-                }
-                fos.write(System.lineSeparator().getBytes());
+            // Create the directory if it doesn't exist
+            File directory = new File("src/File");
+            if (!directory.exists()) {
+                directory.mkdirs(); // Create the directory
             }
-            System.out.println("Array has been written to " + fileName);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            try (FileOutputStream fos = new FileOutputStream(fileName)) {
+                for(int i=atas; i<=bawah; i++){
+                    for(int j=kiri; j<=kanan; j++){
+                        String temp = listTile.get(i).get(j).tipe + " ";
+                        fos.write(temp.getBytes());
+                    }
+                    fos.write(System.lineSeparator().getBytes());
+                }
+                System.out.println("Array has been written to " + fileName);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "NAMA FILE MASIH KOSONG", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -347,6 +351,8 @@ public class Editor extends javax.swing.JFrame {
         bawahButton = new javax.swing.JButton();
         kananButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
+        nameFile = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -403,6 +409,9 @@ public class Editor extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("FILE NAME");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -412,15 +421,22 @@ public class Editor extends javax.swing.JFrame {
                 .addComponent(kiriButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(utamaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                        .addComponent(saveButton)
-                        .addGap(48, 48, 48))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(kananButton)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(130, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(nameFile, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(32, 32, 32))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(saveButton)
+                                .addGap(48, 48, 48))))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -445,9 +461,13 @@ public class Editor extends javax.swing.JFrame {
                                 .addComponent(bawahButton))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(kananButton)
-                                .addGap(106, 106, 106)
+                                .addGap(108, 108, 108)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nameFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(saveButton)
-                                .addGap(93, 93, 93))))
+                                .addGap(35, 35, 35))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(217, 217, 217)
                         .addComponent(kiriButton)
@@ -519,8 +539,10 @@ public class Editor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atasButton;
     private javax.swing.JButton bawahButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton kananButton;
     private javax.swing.JButton kiriButton;
+    private javax.swing.JTextField nameFile;
     private javax.swing.JButton saveButton;
     private javax.swing.JPanel utamaPanel;
     // End of variables declaration//GEN-END:variables

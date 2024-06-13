@@ -33,8 +33,6 @@ public class Play extends javax.swing.JFrame {
     
     public Play() {
         initComponents();
-//        this.mulai=mulai;
-//        this.setVisible(true);
         PlayPanel p = new PlayPanel();
         p.setBounds(0, 0, 714, 508);
         this.add(p);
@@ -43,7 +41,6 @@ public class Play extends javax.swing.JFrame {
         panel.add(speedUpButton);
         panel.add(speedDownButton);
         backtrackButton.setBounds(10, 450, 30, 30);
-//        this.setComponentZOrder(backtrackButton, 1);
         repaint();
     }
     
