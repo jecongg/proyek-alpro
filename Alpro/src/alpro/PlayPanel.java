@@ -120,7 +120,6 @@ public class PlayPanel extends JPanel {
                                         if(k!=yTemp && j!=xTemp){
                                             xCari=j;
                                             yCari=k;
-                                            System.out.println(xCari + " " + yCari);
                                         }
                                     }
                                 }
