@@ -1,5 +1,6 @@
-s e e g 0 
-r b b r b 
-r b b r b 
-r a a r b 
-0 r r r b 
+b b h b b r 
+s b h b b r 
+r a a a a g 
+r b b b b r
+r b b b b r
+r r r r r r

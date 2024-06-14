@@ -16,8 +16,8 @@ import javax.imageio.ImageIO;
 
 public class PlayPanel extends JPanel {
     String map[][];
-    BufferedImage rumput, api, es, player, teleport, heal, start, goal, batu, trap;
-    BufferedImage[] up, left, down, right;
+    BufferedImage rumput, api, es, player, teleport, heal, start, goal, batu, trap, health;
+    BufferedImage[] up, left, down, right, healthImage;
     int tileSize = 70;
     int interval = 1;
     int tambah = 1;
@@ -35,8 +35,10 @@ public class PlayPanel extends JPanel {
         down=new BufferedImage[3];
         left=new BufferedImage[3];
         right=new BufferedImage[3];
+        healthImage = new BufferedImage[5];
         bacaFile();
         importGambar();
+        health=healthImage[4];
         screenPlayerX=(714/2) -(tileSize/2);
         screenPlayerY=(508/2) -(tileSize/2);
 
@@ -57,6 +59,7 @@ public class PlayPanel extends JPanel {
     }
 
     public int backtrack(int x, int y, int langkah, int lives) {
+        health=healthImage[lives];
         if (lives <= 0) {
             return -1;
         } else if ("g".equals(map[y][x])) {
@@ -91,7 +94,10 @@ public class PlayPanel extends JPanel {
                         } 
                         else if ("h".equals(map[yTemp][xTemp])) {
                             map[yTemp][xTemp] = "r";
+                            boolean tempVisited[][] = isVisited;
+                            isVisited=new boolean[map.length][map[0].length];
                             temp = backtrack(xTemp, yTemp, langkah + 1, lives + 1);
+                            isVisited=tempVisited;
                             map[yTemp][xTemp] = "h";
                         }
                         else if ("t".equals(map[yTemp][xTemp])) {
@@ -207,6 +213,9 @@ public class PlayPanel extends JPanel {
                     }
                 }
             }
+            for(int i=0; i<5; i++){
+                healthImage[i] = ImageIO.read(new File("src/Assets/health"+i+".png"));
+            }
         } catch (IOException ex) {
             Logger.getLogger(PlayPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -223,6 +232,36 @@ public class PlayPanel extends JPanel {
         if(tambah<1){
             tambah=1;
         }
+    }
+    
+    
+    public void zoomIn(){
+//        while (moving) {
+//            try {
+//                Thread.sleep(1);
+//            } catch (InterruptedException ex) {
+//                Thread.currentThread().interrupt();
+//            }
+//        }
+        tileSize+=10;
+        if(tileSize>80){
+            tileSize=80;
+        }
+        repaint();
+    }
+    public void zoomOut(){
+//        while (moving) {
+//            try {
+//                Thread.sleep(1);
+//            } catch (InterruptedException ex) {
+//                Thread.currentThread().interrupt();
+//            }
+//        }
+        tileSize-=10;
+        if(tileSize<30){
+            tileSize=30;
+        }
+        repaint();
     }
 
     public void move(int arah) {
@@ -254,7 +293,7 @@ public class PlayPanel extends JPanel {
                 player=up[counter%3];
                 counter++;
                 
-                if (progress >= done) {
+                if (progress >= tileSize) {
                     worldPlayerY = awal-tileSize;
                     ((Timer)e.getSource()).stop();
                     moving = false;
@@ -279,7 +318,7 @@ public class PlayPanel extends JPanel {
                 player=down[counter%3];
                 counter++;
                 
-                if (progress >= done) {
+                if (progress >= tileSize) {
                     worldPlayerY = awal+tileSize;
                     ((Timer)e.getSource()).stop();
                     moving = false;
@@ -304,7 +343,7 @@ public class PlayPanel extends JPanel {
                 player=right[counter%3];
                 counter++;
 
-                if (progress >= done) {
+                if (progress >= tileSize) {
                     worldPlayerX = awal+tileSize;
                     ((Timer)e.getSource()).stop();
                     moving = false;
@@ -329,7 +368,7 @@ public class PlayPanel extends JPanel {
                 player=left[counter%3];
                 counter++;
 
-                if (progress >= done) {
+                if (progress >= tileSize) {
                     worldPlayerX = awal-tileSize;
                     ((Timer)e.getSource()).stop();
                     moving = false;
@@ -353,7 +392,7 @@ public class PlayPanel extends JPanel {
                 for (int j = 0; j < map[0].length; j++) {
                     String[] temp = fileBentukString.get(i).split(" ");
                     map[i][j] = temp[j];
-                    if(map[i][j]=="s"){
+                    if(map[i][j].equals("s")){
                         startPlayerX=j;
                         startPlayerY=i;
                     }
@@ -402,6 +441,7 @@ public class PlayPanel extends JPanel {
                 }
             }
         }
+        g.drawImage(health, 20, 450, 120, 39, null);
         g.drawImage(player, screenPlayerX, screenPlayerY, tileSize, tileSize, null);
     }
 }
