@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 public class PlayPanel extends JPanel {
     String map[][];
     BufferedImage rumput, api, es, player, teleport, heal, start, goal, batu, trap;
+    BufferedImage[] up, left, down, right;
     int tileSize = 70;
     int interval = 1;
     int tambah = 1;
@@ -30,6 +31,10 @@ public class PlayPanel extends JPanel {
     boolean moving;
 
     public PlayPanel() {
+        up=new BufferedImage[3];
+        down=new BufferedImage[3];
+        left=new BufferedImage[3];
+        right=new BufferedImage[3];
         bacaFile();
         importGambar();
         screenPlayerX=(714/2) -(tileSize/2);
@@ -179,13 +184,29 @@ public class PlayPanel extends JPanel {
             rumput = ImageIO.read(new File("src/Assets/rumput.jpeg"));
             es = ImageIO.read(new File("src/Assets/es.jpeg"));
             api = ImageIO.read(new File("src/Assets/api.jpeg"));
-            player = ImageIO.read(new File("src/Assets/player.png"));
+            player = ImageIO.read(new File("src/Assets/down1.png"));
             teleport = ImageIO.read(new File("src/Assets/Teleport.jpg"));
             goal = ImageIO.read(new File("src/Assets/Finish.png"));
             batu = ImageIO.read(new File("src/Assets/batu.jpg"));
             heal = ImageIO.read(new File("src/Assets/heal.png"));
             start = ImageIO.read(new File("src/Assets/Start.png"));
             trap = ImageIO.read(new File("src/Assets/SpringTrap.jpg"));
+            for(int i=0; i<4; i++){
+                for(int j=0; j<3; j++){
+                    if(i==0){
+                        up[j]=ImageIO.read(new File("src/Assets/up"+j+".png"));
+                    }
+                    else if(i==1){
+                        right[j]=ImageIO.read(new File("src/Assets/right"+j+".png"));
+                    }
+                    else if(i==2){
+                        down[j]=ImageIO.read(new File("src/Assets/down"+j+".png"));
+                    }
+                    else if(i==3){
+                        left[j]=ImageIO.read(new File("src/Assets/left"+j+".png"));
+                    }
+                }
+            }
         } catch (IOException ex) {
             Logger.getLogger(PlayPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -224,12 +245,15 @@ public class PlayPanel extends JPanel {
             int progress = 0;
             int done = tileSize;
             int awal = worldPlayerY;
+            int counter = 0;
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 worldPlayerY -= tambah;
                 progress += tambah;
-
+                player=up[counter%3];
+                counter++;
+                
                 if (progress >= done) {
                     worldPlayerY = awal-tileSize;
                     ((Timer)e.getSource()).stop();
@@ -246,12 +270,15 @@ public class PlayPanel extends JPanel {
             int progress = 0;
             int done = tileSize;
             int awal = worldPlayerY;
+            int counter=0;
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 worldPlayerY += tambah;
                 progress += tambah;
-
+                player=down[counter%3];
+                counter++;
+                
                 if (progress >= done) {
                     worldPlayerY = awal+tileSize;
                     ((Timer)e.getSource()).stop();
@@ -268,11 +295,14 @@ public class PlayPanel extends JPanel {
             int progress = 0;
             int done = tileSize;
             int awal = worldPlayerX;
+            int counter=0;
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 worldPlayerX += tambah;
                 progress += tambah;
+                player=right[counter%3];
+                counter++;
 
                 if (progress >= done) {
                     worldPlayerX = awal+tileSize;
@@ -290,11 +320,14 @@ public class PlayPanel extends JPanel {
             int progress = 0;
             int done = tileSize;
             int awal = worldPlayerX;
+            int counter=0;
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 worldPlayerX -= tambah;
                 progress += tambah;
+                player=left[counter%3];
+                counter++;
 
                 if (progress >= done) {
                     worldPlayerX = awal-tileSize;
