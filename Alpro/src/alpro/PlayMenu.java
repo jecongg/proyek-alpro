@@ -5,10 +5,15 @@
  */
 package alpro;
 
+import javax.swing.*;
+import static java.awt.image.ImageObserver.HEIGHT;
+import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.JPanel;
 import java.io.IOException;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
 
 /**
  *
@@ -19,8 +24,26 @@ public class PlayMenu extends javax.swing.JFrame{
     /**
      * Creates new form PlayMenu
      */
-
+    JTextField text = new JTextField("Choose map");
+    JButton b1 = new JButton("Map 1");
+    JButton b2 = new JButton("Map 2");
+    JButton b3 = new JButton("Map 3");
+    JButton b4 = new JButton("Map 4");
+    JPanel panel = new JPanel();
+    
     public PlayMenu() {
+        
+        this.add(text);
+        b1.setSize(250, 55);
+        b2.setSize(250, 55);
+        b3.setSize(250, 55);
+        b4.setSize(250, 55);
+        panel.add(b1);
+        panel.add(b2);
+        panel.add(b3);
+        panel.add(b4);
+        this.add(panel, BorderLayout.CENTER);
+        this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponents();
     }
@@ -36,10 +59,6 @@ public class PlayMenu extends javax.swing.JFrame{
 
         label1 = new java.awt.Label();
         panel1 = new java.awt.Panel();
-        scrollPane2 = new java.awt.ScrollPane();
-        button4 = new java.awt.Button();
-        scrollPane3 = new java.awt.ScrollPane();
-        button5 = new java.awt.Button();
         scrollPane4 = new java.awt.ScrollPane();
         button6 = new java.awt.Button();
 
@@ -49,33 +68,19 @@ public class PlayMenu extends javax.swing.JFrame{
         label1.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 36)); // NOI18N
         label1.setText("Choose Map");
 
-        button4.setLabel("button4");
-        scrollPane2.add(button4);
-
-        button5.setLabel("button5");
-        scrollPane3.add(button5);
-
-        button6.setLabel("button6");
-        scrollPane4.add(button6);
-
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-            .addComponent(scrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(scrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 440, Short.MAX_VALUE)
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addComponent(scrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 33, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
+
+        button6.setLabel("button6");
+        scrollPane4.add(button6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,16 +94,14 @@ public class PlayMenu extends javax.swing.JFrame{
                     .addGroup(layout.createSequentialGroup()
                         .addGap(151, 151, 151)
                         .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup())))
         );
 
         pack();
@@ -130,7 +133,7 @@ public class PlayMenu extends javax.swing.JFrame{
             java.util.logging.Logger.getLogger(PlayMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {               
@@ -140,13 +143,9 @@ public class PlayMenu extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button button4;
-    private java.awt.Button button5;
     private java.awt.Button button6;
     private java.awt.Label label1;
     private java.awt.Panel panel1;
-    private java.awt.ScrollPane scrollPane2;
-    private java.awt.ScrollPane scrollPane3;
     private java.awt.ScrollPane scrollPane4;
     // End of variables declaration//GEN-END:variables
 }

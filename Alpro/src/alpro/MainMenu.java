@@ -5,7 +5,9 @@
  */
 package alpro;
 
+import javax.swing.*;
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 /**
  *
