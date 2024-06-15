@@ -7,7 +7,7 @@ public class Alpro {
     public static void main(String args[]) {
 //        Editor e = new Editor();
 //        e.main();
-        Play e = new Play();
+        MainMenu e = new MainMenu();
         e.main();
     }
     

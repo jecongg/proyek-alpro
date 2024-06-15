@@ -350,9 +350,9 @@ public class Editor extends javax.swing.JFrame {
         kiriButton = new javax.swing.JButton();
         bawahButton = new javax.swing.JButton();
         kananButton = new javax.swing.JButton();
-        saveButton = new javax.swing.JButton();
         nameFile = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        saveButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -402,15 +402,15 @@ public class Editor extends javax.swing.JFrame {
             }
         });
 
-        saveButton.setText("Save");
-        saveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveButtonActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("FILE NAME");
+
+        saveButton1.setText("Save");
+        saveButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -428,15 +428,11 @@ public class Editor extends javax.swing.JFrame {
                         .addContainerGap(130, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(nameFile, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(32, 32, 32))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(saveButton)
-                                .addGap(48, 48, 48))))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1)
+                            .addComponent(nameFile)
+                            .addComponent(saveButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
+                        .addGap(35, 35, 35))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -461,13 +457,13 @@ public class Editor extends javax.swing.JFrame {
                                 .addComponent(bawahButton))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(kananButton)
-                                .addGap(108, 108, 108)
+                                .addGap(153, 153, 153)
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nameFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(saveButton)
-                                .addGap(35, 35, 35))))
+                                .addComponent(saveButton1)
+                                .addGap(46, 46, 46))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(217, 217, 217)
                         .addComponent(kiriButton)
@@ -497,9 +493,9 @@ public class Editor extends javax.swing.JFrame {
         kanan();
     }//GEN-LAST:event_kananButtonActionPerformed
 
-    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        save();
-    }//GEN-LAST:event_saveButtonActionPerformed
+    private void saveButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButton1ActionPerformed
+       save();
+    }//GEN-LAST:event_saveButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -543,7 +539,7 @@ public class Editor extends javax.swing.JFrame {
     private javax.swing.JButton kananButton;
     private javax.swing.JButton kiriButton;
     private javax.swing.JTextField nameFile;
-    private javax.swing.JButton saveButton;
+    private javax.swing.JButton saveButton1;
     private javax.swing.JPanel utamaPanel;
     // End of variables declaration//GEN-END:variables
 }
