@@ -5,10 +5,6 @@
  */
 package alpro;
 
-import javax.swing.*;
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-
 /**
  *
  * @author NIKO
@@ -18,7 +14,6 @@ public class MainMenu extends javax.swing.JFrame {
     /**
      * Creates new form MainMenu
      */
-//    Play plays = new Play(na);
     Editor edit = new Editor();
     PlayMenu pm = new PlayMenu();
 

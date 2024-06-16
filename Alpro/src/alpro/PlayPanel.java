@@ -30,14 +30,22 @@ public class PlayPanel extends JPanel {
     boolean isVisited[][];
     boolean jalanTercepat[][];
     boolean moving;
+    ArrayList<Integer> jalanX;
+    ArrayList<Integer> jalanY;
+    ArrayList<Integer> tercepatX;
+    ArrayList<Integer> tercepatY;
+    JButton backtrackButton;
 
-    public PlayPanel(String namaFile) {
+    public PlayPanel(String namaFile, JButton b) {
         this.namaFile=namaFile;
+        backtrackButton=b;
         up=new BufferedImage[3];
         down=new BufferedImage[3];
         left=new BufferedImage[3];
         right=new BufferedImage[3];
         healthImage = new BufferedImage[5];
+        jalanX=new ArrayList<>();
+        jalanY = new ArrayList<>();
         bacaFile();
         importGambar();
         health=healthImage[4];
@@ -56,21 +64,31 @@ public class PlayPanel extends JPanel {
     
     public void mulaiBacktrack() {
         new Thread(() -> {
-            System.out.println(backtrack(startPlayerX, startPlayerY, 0, 4));
+            System.out.println(backtrack(startPlayerX, startPlayerY, 0, 4, true));
         }).start();
     }
 
-    public int backtrack(int x, int y, int langkah, int lives) {
+    public int backtrack(int x, int y, int langkah, int lives, boolean level1) {
+        jalanX.add(x);
+        jalanY.add(y);
         health=healthImage[lives];
         if (lives <= 0) {
+            jalanX.remove(jalanX.size()-1);
+            jalanY.remove(jalanY.size()-1);
             return -1;
         } else if ("g".equals(map[y][x])) {
             if (langkahTercepat == -1) {
                 langkahTercepat = langkah;
+                tercepatX = (ArrayList<Integer>) jalanX.clone();
+                tercepatY = (ArrayList<Integer>) jalanY.clone();
             }
-            if (langkahTercepat < langkah) {
-                jalanTercepat = isVisited.clone();
+            else if (langkah < langkahTercepat) {
+                langkahTercepat=langkah;
+                tercepatY = (ArrayList<Integer>) jalanY.clone();
+                tercepatX = (ArrayList<Integer>) jalanX.clone();
             }
+            jalanX.remove(jalanX.size()-1);
+            jalanY.remove(jalanY.size()-1);
             return langkah;
         } else {
             int tempLangkah = 0;
@@ -92,13 +110,13 @@ public class PlayPanel extends JPanel {
                         }
                         int temp = 0;
                         if ("a".equals(map[yTemp][xTemp])) {
-                            temp = backtrack(xTemp, yTemp, langkah + 1, lives - 1);
+                            temp = backtrack(xTemp, yTemp, langkah + 1, lives - 1, false);
                         } 
                         else if ("h".equals(map[yTemp][xTemp])) {
                             map[yTemp][xTemp] = "r";
                             boolean tempVisited[][] = isVisited;
                             isVisited=new boolean[map.length][map[0].length];
-                            temp = backtrack(xTemp, yTemp, langkah + 1, lives + 1);
+                            temp = backtrack(xTemp, yTemp, langkah + 1, lives + 1, false);
                             isVisited=tempVisited;
                             map[yTemp][xTemp] = "h";
                         }
@@ -111,7 +129,7 @@ public class PlayPanel extends JPanel {
                             worldPlayerX=startPlayerX*tileSize;
                             worldPlayerY=startPlayerY*tileSize;
                             repaint();
-                            temp = backtrack(startPlayerX, startPlayerY, langkah + 1, lives);
+                            temp = backtrack(startPlayerX, startPlayerY, langkah + 1, lives, false);
                             worldPlayerX=tempX;
                             worldPlayerY=tempY;
                             repaint();
@@ -119,10 +137,10 @@ public class PlayPanel extends JPanel {
                             map[yTemp][xTemp] = "t";
                         }
                         else if ("e".equals(map[yTemp][xTemp])) {
-                            temp = backtrack(xTemp, yTemp, langkah + 2, lives);
+                            temp = backtrack(xTemp, yTemp, langkah + 2, lives, false);
                         }
                         else if ("r".equals(map[yTemp][xTemp])) {
-                            temp = backtrack(xTemp, yTemp, langkah + 1, lives);
+                            temp = backtrack(xTemp, yTemp, langkah + 1, lives, false);
                         }
                         else if(Character.isDigit(map[yTemp][xTemp].charAt(0))){
                             int xCari=0;
@@ -147,7 +165,7 @@ public class PlayPanel extends JPanel {
                             map[yCari][xCari]="r";
                             boolean[][] tempVisited=isVisited.clone();
                             isVisited=new boolean[map.length][map[0].length];
-                            temp = backtrack(xCari, yCari, langkah + 1, lives);
+                            temp = backtrack(xCari, yCari, langkah + 1, lives, false);
                             worldPlayerX=tempX;
                             worldPlayerY=tempY;
                             repaint();
@@ -156,7 +174,7 @@ public class PlayPanel extends JPanel {
                             map[yCari][xCari]=tempTele;
                         }
                         else{
-                            temp = backtrack(xTemp, yTemp, langkah + 1, lives);
+                            temp = backtrack(xTemp, yTemp, langkah + 1, lives, false);
                         }
                         if (pertama && temp != -1 && temp != 0) {
                             tempLangkah = temp;
@@ -180,10 +198,73 @@ public class PlayPanel extends JPanel {
                     }
                 }
             }
+            if(level1){
+                backtrackButton.setEnabled(true);
+            }
+            jalanX.remove(jalanX.size()-1);
+            jalanY.remove(jalanY.size()-1);
             if (cek) {
                 return tempLangkah;
             }
             return -1;
+        }
+    }
+    
+    
+    public void mulaiReplay(){
+        worldPlayerX=startPlayerX*tileSize;
+        worldPlayerY=startPlayerY*tileSize;
+        int x=startPlayerX;
+        int y=startPlayerY;
+        repaint();
+        for(int i=1; i<tercepatX.size(); i++){
+            int move=0;
+            if(tercepatY.get(i)<y){
+                move=0;
+            }
+            else if(tercepatX.get(i)>x){
+                move=1;
+            }
+            else if(tercepatY.get(i)>y){
+                move=2;
+            }
+            else{
+                move=3;
+            }
+            while (moving) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+            move(move);
+        }
+    }
+    
+    private void replay(int x, int y){
+        System.out.println(x + " " + y);
+        worldPlayerX=x*tileSize;
+        worldPlayerY=y*tileSize;
+        repaint();
+        for (int i = 0; i < 4; i++) {
+            int yTemp = y + tambahY[i];
+            int xTemp = x + tambahX[i];
+            if (xTemp >= 0 && yTemp >= 0 && xTemp < map[0].length && yTemp < map.length) {
+                if(jalanTercepat[yTemp][xTemp]){
+                    
+//                    move(i);
+//                    while (moving) {
+//                        try {
+//                            Thread.sleep(1);
+//                        } catch (InterruptedException ex) {
+//                            Thread.currentThread().interrupt();
+//                        }
+//                    }
+                    replay(xTemp,yTemp);
+                }
+            }
+            
         }
     }
 
@@ -383,8 +464,8 @@ public class PlayPanel extends JPanel {
 
     public void bacaFile() {
         try {
-            PlayMenu pm = new PlayMenu();
-            File f = new File("src/File/" + pm.filedipilih + "");
+            System.out.println("File : " + namaFile);
+            File f = new File("src/File/"+namaFile);
             Scanner s = new Scanner(f);
             ArrayList<String> fileBentukString = new ArrayList<>();
             while (s.hasNextLine()) {

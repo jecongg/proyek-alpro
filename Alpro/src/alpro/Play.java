@@ -6,12 +6,6 @@
 package alpro;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -30,10 +24,12 @@ public class Play extends javax.swing.JFrame {
     BufferedImage batu;
     BufferedImage start;
     BufferedImage finish;
+    static String namaFile;
     
     public Play(String namaFile) {
         initComponents();
-        PlayPanel p = new PlayPanel(namaFile);
+        this.namaFile=namaFile;
+        PlayPanel p = new PlayPanel(namaFile, backtrackButton);
         p.setBounds(0, 0, 714, 508);
         this.add(p);
         this.panel=p;
@@ -109,8 +105,14 @@ public class Play extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backtrackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backtrackButtonActionPerformed
-        panel.mulaiBacktrack();
-        backtrackButton.setEnabled(false);
+        if(backtrackButton.getText().equals("BACKTRACK")){
+            panel.mulaiBacktrack();
+            backtrackButton.setText("REPLAY");
+            backtrackButton.setEnabled(false);
+        }
+        else{
+            panel.mulaiReplay();
+        }
     }//GEN-LAST:event_backtrackButtonActionPerformed
 
     private void speedUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speedUpButtonActionPerformed

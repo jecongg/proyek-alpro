@@ -6,15 +6,10 @@
 package alpro;
 
 import javax.swing.*;
-import static java.awt.image.ImageObserver.HEIGHT;
-import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.JPanel;
-import java.io.IOException;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -26,13 +21,7 @@ import alpro.Play;
  */
 public class PlayMenu extends javax.swing.JFrame{
     
-    JTextField text = new JTextField("Choose map");
-    JButton b1 = new JButton("Map 1");
-    JButton b2 = new JButton("Map 2");
-    JButton b3 = new JButton("Map 3");
-    JButton b4 = new JButton("Map 4");
     JPanel panel = new JPanel();
-    
     File[] listOfFiles;
     
     String filedipilih;
@@ -70,15 +59,12 @@ public class PlayMenu extends javax.swing.JFrame{
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
                 JButton button = new JButton(file.getName());
-                button.setPreferredSize(new Dimension(200, 300));
-                button.setSize(3000, 3000);
                 // Add an ActionListener to handle button clicks
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         // Handle button click
-                        filedipilih = file.getName();
-                        Play p = new Play(filedipilih);
+                        Play p = new Play(file.getName());
                         p.main();
                     }
                 });
