@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -66,6 +67,8 @@ public class PlayMenu extends javax.swing.JFrame{
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
                 JButton button = new JButton(file.getName());
+                button.setPreferredSize(new Dimension(200, 300));
+                button.setSize(3000, 3000);
                 // Add an ActionListener to handle button clicks
                 button.addActionListener(new ActionListener() {
                     @Override
