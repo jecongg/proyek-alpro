@@ -30,7 +30,7 @@ public class Play extends javax.swing.JFrame {
         initComponents();
         this.namaFile=namaFile;
         PlayPanel p = new PlayPanel(namaFile, backtrackButton);
-        p.setBounds(0, 0, 714, 508);
+        p.setBounds(0, 0, 730, 530);
         this.add(p);
         this.panel=p;
         panel.add(backtrackButton);

@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 
 public class PlayPanel extends JPanel {
     String map[][];
-    BufferedImage rumput, api, es, player, teleport, heal, start, goal, batu, trap, health;
+    BufferedImage rumput, api, es, player, teleport, heal, start, goal, batu, trap, health, water;
     BufferedImage[] up, left, down, right, healthImage;
     String namaFile;
     int tileSize = 70;
@@ -261,6 +261,8 @@ public class PlayPanel extends JPanel {
             heal = ImageIO.read(new File("src/Assets/heal.png"));
             start = ImageIO.read(new File("src/Assets/Start.png"));
             trap = ImageIO.read(new File("src/Assets/SpringTrap.jpg"));
+            water = ImageIO.read(new File("src/Assets/Water.png"));
+            
             for(int i=0; i<4; i++){
                 for(int j=0; j<3; j++){
                     if(i==0){
@@ -470,6 +472,11 @@ public class PlayPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        for(int i=0; i<7; i++){
+            for(int j=0; j<4; j++){
+                g.drawImage(water, j*320, i*80, 320, 80, null);
+            }
+        }
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
                 int worldX = j*tileSize;
