@@ -383,7 +383,8 @@ public class PlayPanel extends JPanel {
 
     public void bacaFile() {
         try {
-            File f = new File("src/File/output.txt");
+            PlayMenu pm = new PlayMenu();
+            File f = new File("src/File/" + pm.filedipilih + "");
             Scanner s = new Scanner(f);
             ArrayList<String> fileBentukString = new ArrayList<>();
             while (s.hasNextLine()) {

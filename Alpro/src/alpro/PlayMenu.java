@@ -18,13 +18,14 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import alpro.Play;
 
 /**
  *
  * @author NIKO
  */
 public class PlayMenu extends javax.swing.JFrame{
-
+    
     JTextField text = new JTextField("Choose map");
     JButton b1 = new JButton("Map 1");
     JButton b2 = new JButton("Map 2");
@@ -34,6 +35,8 @@ public class PlayMenu extends javax.swing.JFrame{
     
     File[] listOfFiles;
     
+    String filedipilih;
+    
     public PlayMenu() {
         initAwal();
         initComponents();
@@ -41,7 +44,7 @@ public class PlayMenu extends javax.swing.JFrame{
 
     // Method to read files from the directory
     public void bacaFile() {
-        File folder = new File("src/File"); // Ensure this path is correct
+        File folder = new File("src/File/"); // Ensure this path is correct
         if (folder.exists() && folder.isDirectory()) {
             listOfFiles = folder.listFiles();
             if (listOfFiles != null) {
@@ -74,7 +77,9 @@ public class PlayMenu extends javax.swing.JFrame{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         // Handle button click
-                        JOptionPane.showMessageDialog(null, "You clicked: " + file.getName());
+                        filedipilih = file.getName();
+                        Play p = new Play(filedipilih);
+                        p.main();
                     }
                 });
                 panel.add(button);
