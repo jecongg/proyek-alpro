@@ -38,6 +38,8 @@ public class Play extends javax.swing.JFrame {
         panel.add(speedDownButton);
         backtrackButton.setBounds(10, 450, 30, 30);
         repaint();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
     
 
@@ -153,7 +155,6 @@ public class Play extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                String namaFile = null;
                 new Play(namaFile).setVisible(true);
             }
         });

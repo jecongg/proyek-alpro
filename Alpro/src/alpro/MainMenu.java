@@ -19,6 +19,8 @@ public class MainMenu extends javax.swing.JFrame {
 
     public MainMenu() { 
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
@@ -70,7 +72,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,17 +86,17 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap(118, Short.MAX_VALUE))
         );
 
-        button1.getAccessibleContext().setAccessibleName("Play");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         pm.main();
+        this.dispose();
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
         edit.main();
+        this.dispose();
     }//GEN-LAST:event_button2ActionPerformed
 
     /**

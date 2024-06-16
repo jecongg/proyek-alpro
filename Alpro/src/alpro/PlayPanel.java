@@ -210,8 +210,13 @@ public class PlayPanel extends JPanel {
         }
     }
     
+    public void mulaiReplay() {
+        new Thread(() -> {
+            replay();
+        }).start();
+    }
     
-    public void mulaiReplay(){
+    public void replay(){
         worldPlayerX=startPlayerX*tileSize;
         worldPlayerY=startPlayerY*tileSize;
         int x=startPlayerX;
@@ -238,33 +243,9 @@ public class PlayPanel extends JPanel {
                     Thread.currentThread().interrupt();
                 }
             }
+            x=tercepatX.get(i);
+            y=tercepatY.get(i);
             move(move);
-        }
-    }
-    
-    private void replay(int x, int y){
-        System.out.println(x + " " + y);
-        worldPlayerX=x*tileSize;
-        worldPlayerY=y*tileSize;
-        repaint();
-        for (int i = 0; i < 4; i++) {
-            int yTemp = y + tambahY[i];
-            int xTemp = x + tambahX[i];
-            if (xTemp >= 0 && yTemp >= 0 && xTemp < map[0].length && yTemp < map.length) {
-                if(jalanTercepat[yTemp][xTemp]){
-                    
-//                    move(i);
-//                    while (moving) {
-//                        try {
-//                            Thread.sleep(1);
-//                        } catch (InterruptedException ex) {
-//                            Thread.currentThread().interrupt();
-//                        }
-//                    }
-                    replay(xTemp,yTemp);
-                }
-            }
-            
         }
     }
 
@@ -464,8 +445,7 @@ public class PlayPanel extends JPanel {
 
     public void bacaFile() {
         try {
-            System.out.println("File : " + namaFile);
-            File f = new File("src/File/"+namaFile);
+            File f = new File("src/File/" + namaFile);
             Scanner s = new Scanner(f);
             ArrayList<String> fileBentukString = new ArrayList<>();
             while (s.hasNextLine()) {

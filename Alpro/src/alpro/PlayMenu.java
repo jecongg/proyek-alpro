@@ -29,6 +29,8 @@ public class PlayMenu extends javax.swing.JFrame{
     public PlayMenu() {
         initAwal();
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     // Method to read files from the directory

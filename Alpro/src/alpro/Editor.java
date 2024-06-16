@@ -74,6 +74,7 @@ public class Editor extends javax.swing.JFrame {
         y=0;
         initComponents();
         initAwal();
+        this.setLocationRelativeTo(null);
     }
   
     
@@ -353,6 +354,7 @@ public class Editor extends javax.swing.JFrame {
         nameFile = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         saveButton1 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -412,6 +414,13 @@ public class Editor extends javax.swing.JFrame {
             }
         });
 
+        backButton.setText("BACK");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -436,7 +445,8 @@ public class Editor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(269, 269, 269)
+                        .addComponent(backButton)
+                        .addGap(196, 196, 196)
                         .addComponent(atasButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(266, 266, 266)
@@ -446,7 +456,9 @@ public class Editor extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(atasButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(atasButton)
+                    .addComponent(backButton))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -497,6 +509,12 @@ public class Editor extends javax.swing.JFrame {
        save();
     }//GEN-LAST:event_saveButton1ActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        MainMenu m = new MainMenu();
+        m.main();
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -534,6 +552,7 @@ public class Editor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atasButton;
+    private javax.swing.JButton backButton;
     private javax.swing.JButton bawahButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton kananButton;
