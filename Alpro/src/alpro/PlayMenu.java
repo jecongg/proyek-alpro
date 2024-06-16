@@ -14,6 +14,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  *
@@ -21,9 +24,6 @@ import java.awt.BorderLayout;
  */
 public class PlayMenu extends javax.swing.JFrame{
 
-    /**
-     * Creates new form PlayMenu
-     */
     JTextField text = new JTextField("Choose map");
     JButton b1 = new JButton("Map 1");
     JButton b2 = new JButton("Map 2");
@@ -31,22 +31,69 @@ public class PlayMenu extends javax.swing.JFrame{
     JButton b4 = new JButton("Map 4");
     JPanel panel = new JPanel();
     
+    File[] listOfFiles;
+    
     public PlayMenu() {
-        
-        this.add(text);
-        b1.setSize(250, 55);
-        b2.setSize(250, 55);
-        b3.setSize(250, 55);
-        b4.setSize(250, 55);
-        panel.add(b1);
-        panel.add(b2);
-        panel.add(b3);
-        panel.add(b4);
-        this.add(panel, BorderLayout.CENTER);
-        this.setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        initAwal();
         initComponents();
     }
+
+    // Method to read files from the directory
+    public void bacaFile() {
+        File folder = new File("src/File"); // Ensure this path is correct
+        if (folder.exists() && folder.isDirectory()) {
+            listOfFiles = folder.listFiles();
+            if (listOfFiles != null) {
+                for (File file : listOfFiles) {
+                    System.out.println(file.getName());
+                }
+            } else {
+                System.out.println("The directory is empty or an error occurred.");
+            }
+        } else {
+            System.out.println("The directory does not exist.");
+        }
+    }
+
+
+    // Method to initialize the GUI components
+    public void initAwal() {
+        // Set up the panel and layout
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        // Read the files and create buttons for each file
+        bacaFile();
+        if (listOfFiles != null) {
+            for (File file : listOfFiles) {
+                JButton button = new JButton(file.getName());
+                // Add an ActionListener to handle button clicks
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Handle button click
+                        JOptionPane.showMessageDialog(null, "You clicked: " + file.getName());
+                    }
+                });
+                panel.add(button);
+            }
+        } else {
+            System.out.println("No files found.");
+        }
+
+        // Create a JScrollPane and add the panel to it
+        JScrollPane scrollPane = new JScrollPane(panel);
+
+        // Ensure the scrollbars always appear
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        // Add the JScrollPane to the frame
+        this.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setBounds(10,70,420,400);
+        this.revalidate();
+        this.repaint();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,9 +105,6 @@ public class PlayMenu extends javax.swing.JFrame{
     private void initComponents() {
 
         label1 = new java.awt.Label();
-        panel1 = new java.awt.Panel();
-        scrollPane4 = new java.awt.ScrollPane();
-        button6 = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,40 +112,21 @@ public class PlayMenu extends javax.swing.JFrame{
         label1.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 36)); // NOI18N
         label1.setText("Choose Map");
 
-        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
-        );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        button6.setLabel("button6");
-        scrollPane4.add(button6);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addGap(105, 105, 105)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup())))
+                .addContainerGap()
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(423, Short.MAX_VALUE))
         );
 
         pack();
@@ -143,9 +168,6 @@ public class PlayMenu extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button button6;
     private java.awt.Label label1;
-    private java.awt.Panel panel1;
-    private java.awt.ScrollPane scrollPane4;
     // End of variables declaration//GEN-END:variables
 }
