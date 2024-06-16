@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -468,51 +469,100 @@ public class PlayPanel extends JPanel {
             Logger.getLogger(PlayPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for(int i=0; i<7; i++){
-            for(int j=0; j<4; j++){
-                g.drawImage(water, j*320, i*80, 320, 80, null);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int arcSize = 20; // Size of the arc for rounded corners
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 4; j++) {
+                g2d.drawImage(water, j * 320, i * 80, 320, 80, null);
             }
         }
+
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
-                int worldX = j*tileSize;
-                int worldY = i*tileSize;
+                int worldX = j * tileSize;
+                int worldY = i * tileSize;
                 int screenX = worldX - worldPlayerX + screenPlayerX;
                 int screenY = worldY - worldPlayerY + screenPlayerY;
+
+                boolean isTopLeftEdgeTile = (i == 0 && j == 0);
+                boolean isTopRightEdgeTile = (i == 0 && j == map[0].length - 1);
+                boolean isBottomLeftEdgeTile = (i == map.length - 1 && j == 0);
+                boolean isBottomRightEdgeTile = (i == map.length - 1 && j == map[0].length - 1);
+
+                Image image = null;
                 if ("r".equals(map[i][j])) {
-                    g.drawImage(rumput, screenX, screenY, tileSize, tileSize, null);
+                    image = rumput;
+                } else if ("a".equals(map[i][j])) {
+                    image = api;
+                } else if ("e".equals(map[i][j])) {
+                    image = es;
+                } else if ("s".equals(map[i][j])) {
+                    image = start;
+                } else if ("g".equals(map[i][j])) {
+                    image = goal;
+                } else if ("t".equals(map[i][j])) {
+                    image = trap;
+                } else if ("h".equals(map[i][j])) {
+                    image = heal;
+                } else if ("b".equals(map[i][j])) {
+                    image = batu;
+                } else {
+                    image = teleport;
                 }
-                else if ("a".equals(map[i][j])) {
-                    g.drawImage(api, screenX, screenY, tileSize, tileSize, null);
+
+                Path2D path = new Path2D.Float();
+                if (isTopLeftEdgeTile) {
+                    path.moveTo(screenX + arcSize, screenY);
+                    path.lineTo(screenX + tileSize, screenY);
+                    path.lineTo(screenX + tileSize, screenY + tileSize);
+                    path.lineTo(screenX, screenY + tileSize);
+                    path.lineTo(screenX, screenY + arcSize);
+                    path.quadTo(screenX, screenY, screenX + arcSize, screenY);
+                    path.closePath();
+                    g2d.setClip(path);
+                } else if (isTopRightEdgeTile) {
+                    path.moveTo(screenX, screenY);
+                    path.lineTo(screenX + tileSize - arcSize, screenY);
+                    path.quadTo(screenX + tileSize, screenY, screenX + tileSize, screenY + arcSize);
+                    path.lineTo(screenX + tileSize, screenY + tileSize);
+                    path.lineTo(screenX, screenY + tileSize);
+                    path.closePath();
+                    g2d.setClip(path);
+                } else if (isBottomLeftEdgeTile) {
+                    path.moveTo(screenX, screenY);
+                    path.lineTo(screenX + tileSize, screenY);
+                    path.lineTo(screenX + tileSize, screenY + tileSize);
+                    path.lineTo(screenX + arcSize, screenY + tileSize);
+                    path.quadTo(screenX, screenY + tileSize, screenX, screenY + tileSize - arcSize);
+                    path.closePath();
+                    g2d.setClip(path);
+                } else if (isBottomRightEdgeTile) {
+                    path.moveTo(screenX, screenY);
+                    path.lineTo(screenX + tileSize, screenY);
+                    path.lineTo(screenX + tileSize, screenY + tileSize - arcSize);
+                    path.quadTo(screenX + tileSize, screenY + tileSize, screenX + tileSize - arcSize, screenY + tileSize);
+                    path.lineTo(screenX, screenY + tileSize);
+                    path.closePath();
+                    g2d.setClip(path);
                 }
-                else if ("e".equals(map[i][j])) {
-                    g.drawImage(es, screenX, screenY, tileSize, tileSize, null);
-                }
-                else if ("s".equals(map[i][j])) {
-                    g.drawImage(start, screenX, screenY, tileSize, tileSize, null);
-                }
-                else if ("g".equals(map[i][j])) {
-                    g.drawImage(goal, screenX, screenY, tileSize, tileSize, null);
-                }
-                else if ("t".equals(map[i][j])) {
-                    g.drawImage(trap, screenX, screenY, tileSize, tileSize, null);
-                }
-                else if ("h".equals(map[i][j])) {
-                    g.drawImage(heal, screenX, screenY, tileSize, tileSize, null);
-                }
-                else if ("b".equals(map[i][j])) {
-                    g.drawImage(batu, screenX, screenY, tileSize, tileSize, null);
-                }
-                else {
-                    g.drawImage(teleport, screenX, screenY, tileSize, tileSize, null);
+
+                g2d.drawImage(image, screenX, screenY, tileSize, tileSize, null);
+
+                if (isTopLeftEdgeTile || isTopRightEdgeTile || isBottomLeftEdgeTile || isBottomRightEdgeTile) {
+                    g2d.setClip(null);
                 }
             }
         }
-        g.drawImage(health, 20, 450, 120, 39, null);
-        g.drawImage(player, screenPlayerX, screenPlayerY, tileSize, tileSize, null);
+
+        g2d.drawImage(health, 20, 450, 120, 39, null);
+        g2d.drawImage(player, screenPlayerX, screenPlayerY, tileSize, tileSize, null);
     }
+
 }
