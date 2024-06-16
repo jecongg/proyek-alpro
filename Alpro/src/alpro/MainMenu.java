@@ -18,7 +18,7 @@ public class MainMenu extends javax.swing.JFrame {
     /**
      * Creates new form MainMenu
      */
-    Play plays = new Play();
+//    Play plays = new Play(na);
     Editor edit = new Editor();
     PlayMenu pm = new PlayMenu();
 

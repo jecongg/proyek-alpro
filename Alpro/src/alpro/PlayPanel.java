@@ -18,6 +18,7 @@ public class PlayPanel extends JPanel {
     String map[][];
     BufferedImage rumput, api, es, player, teleport, heal, start, goal, batu, trap, health;
     BufferedImage[] up, left, down, right, healthImage;
+    String namaFile;
     int tileSize = 70;
     int interval = 1;
     int tambah = 1;
@@ -30,7 +31,8 @@ public class PlayPanel extends JPanel {
     boolean jalanTercepat[][];
     boolean moving;
 
-    public PlayPanel() {
+    public PlayPanel(String namaFile) {
+        this.namaFile=namaFile;
         up=new BufferedImage[3];
         down=new BufferedImage[3];
         left=new BufferedImage[3];

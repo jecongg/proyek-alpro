@@ -31,9 +31,9 @@ public class Play extends javax.swing.JFrame {
     BufferedImage start;
     BufferedImage finish;
     
-    public Play() {
+    public Play(String namaFile) {
         initComponents();
-        PlayPanel p = new PlayPanel();
+        PlayPanel p = new PlayPanel(namaFile);
         p.setBounds(0, 0, 714, 508);
         this.add(p);
         this.panel=p;
@@ -43,26 +43,6 @@ public class Play extends javax.swing.JFrame {
         backtrackButton.setBounds(10, 450, 30, 30);
         repaint();
     }
-    
-    public void bacaFile(){
-        try {
-            File f = new File("src/File/output.txt");
-            Scanner s = new Scanner(f);
-            ArrayList<String> fileBentukString = new ArrayList<>();
-            while(s.hasNextLine()){
-                fileBentukString.add(s.nextLine());
-            }
-            map = new char[fileBentukString.size()][fileBentukString.get(0).length()];
-            for(int i=0; i<map.length; i++){
-                for(int j=0; j<map[0].length; j++){
-                    map[i][j]=fileBentukString.get(i).charAt(j);
-                }
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Play.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     
 
     /**
@@ -171,7 +151,7 @@ public class Play extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Play().setVisible(true);
+                new Play(namaFile).setVisible(true);
             }
         });
     }
