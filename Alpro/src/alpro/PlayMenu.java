@@ -13,15 +13,12 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import alpro.Play;
 
 /**
  *
  * @author NIKO
  */
 public class PlayMenu extends javax.swing.JFrame{
-    
-    JPanel panel = new JPanel();
     File[] listOfFiles;
     
     String filedipilih;
@@ -51,12 +48,10 @@ public class PlayMenu extends javax.swing.JFrame{
     }
 
 
-    // Method to initialize the GUI components
     public void initAwal() {
-        // Set up the panel and layout
+        JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Read the files and create buttons for each file
         bacaFile();
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
@@ -101,6 +96,7 @@ public class PlayMenu extends javax.swing.JFrame{
     private void initComponents() {
 
         label1 = new java.awt.Label();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,25 +104,41 @@ public class PlayMenu extends javax.swing.JFrame{
         label1.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 36)); // NOI18N
         label1.setText("Choose Map");
 
+        jButton1.setText("BACK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+                .addComponent(jButton1)
+                .addGap(32, 32, 32)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(422, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        MainMenu m = new MainMenu();
+        m.main();
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,6 +176,7 @@ public class PlayMenu extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 }
