@@ -23,9 +23,13 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -47,8 +51,10 @@ public class Editor extends javax.swing.JFrame {
     boolean klik;
     boolean startDone, finishDone;
     Tile tempTele;
+    static String fileName;
     
-    public Editor() {
+    public Editor(String fileName) {
+        this.fileName=fileName;
         listTile=new ArrayList<>();
         template=new ArrayList<>();
         listEdge=new ArrayList<>();
@@ -74,9 +80,40 @@ public class Editor extends javax.swing.JFrame {
         y=0;
         initComponents();
         initAwal();
+        bacaFile();
         this.setLocationRelativeTo(null);
     }
-  
+    
+    public void bacaFile() {
+        if(!fileName.equals("")){
+            try {
+                File f = new File("src/File/" + fileName);
+                Scanner s = new Scanner(f);
+                ArrayList<String> fileBentukString = new ArrayList<>();
+                while (s.hasNextLine()) {
+                    fileBentukString.add(s.nextLine());
+                }
+                for (int i = 0; i < fileBentukString.size(); i++) {
+                    for (int j = 0; j < fileBentukString.get(0).split(" ").length; j++) {
+                        String[] temp = fileBentukString.get(i).split(" ");
+                        if(Character.isDigit(temp[j].charAt(0))){
+                            int angka=Integer.parseInt(temp[j]);
+                            if(angka>nomor){
+                                nomor=angka++;
+                            }
+                        }
+                        Tile t = listTile.get(y+i).get(x+j);
+                        t.ubah(temp[j]);
+                    }
+                }
+                nameFile.setText(fileName.split(".txt")[0]);
+                printTile();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(PlayPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
     
     public void initAwal(){
         bawahButton.setText("\u2227");
@@ -545,7 +582,7 @@ public class Editor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Editor().setVisible(true);
+                new Editor(fileName).setVisible(true);
             }
         });
     }

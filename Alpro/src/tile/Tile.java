@@ -49,47 +49,47 @@ public class Tile extends JPanel{
 
     @Override
     protected void paintComponent(Graphics g) {
-        if(tipe=="r"){
+        if("r".equals(tipe)){
             if (rumput != null) {
                 g.drawImage(rumput, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=="a"){
+        else if("a".equals(tipe)){
             if (api != null) {
                 g.drawImage(api, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=="e"){
+        else if("e".equals(tipe)){
             if (es != null) {
                 g.drawImage(es, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=="t"){
+        else if("t".equals(tipe)){
             if (springtrap != null) {
                 g.drawImage(springtrap, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=="h"){
+        else if("h".equals(tipe)){
             if (heal != null) {
                 g.drawImage(heal, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=="b"){
+        else if("b".equals(tipe)){
             if (batu != null) {
                 g.drawImage(batu, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=="s"){
+        else if("s".equals(tipe)){
             if (start != null) {
                 g.drawImage(start, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=="g"){
+        else if("g".equals(tipe)){
             if (finish != null) {
                 g.drawImage(finish, 0, 0, 30, 30, null);
             }
         }
-        else if(tipe=="k"){
+        else if("k".equals(tipe)){
             super.paintComponent(g);
         }
         else{
