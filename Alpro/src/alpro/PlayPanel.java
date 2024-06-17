@@ -70,6 +70,9 @@ public class PlayPanel extends JPanel {
     }
 
     public int backtrack(int x, int y, int langkah, int lives, boolean level1) {
+        if(lives>4){
+            lives=4;
+        }
         jalanX.add(x);
         jalanY.add(y);
         health=healthImage[lives];
@@ -101,14 +104,14 @@ public class PlayPanel extends JPanel {
                 if (xTemp >= 0 && yTemp >= 0 && xTemp < map[0].length && yTemp < map.length) {
                     if (!isVisited[yTemp][xTemp] && !map[yTemp][xTemp].equals("b") && !map[yTemp][xTemp].equals("k")) {
                         isVisited[yTemp][xTemp] = true;
-                        move(i);
-                        while (moving) {
-                            try {
-                                Thread.sleep(1);
-                            } catch (InterruptedException ex) {
-                                Thread.currentThread().interrupt();
-                            }
-                        }
+//                        move(i);
+//                        while (moving) {
+//                            try {
+//                                Thread.sleep(1);
+//                            } catch (InterruptedException ex) {
+//                                Thread.currentThread().interrupt();
+//                            }
+//                        }
                         int temp = 0;
                         if ("a".equals(map[yTemp][xTemp])) {
                             temp = backtrack(xTemp, yTemp, langkah + 1, lives - 1, false);
@@ -187,14 +190,14 @@ public class PlayPanel extends JPanel {
                                 tempLangkah = temp;
                             }
                         }
-                        move((i + 2) % 4);
-                        while (moving) {
-                            try {
-                                Thread.sleep(1);
-                            } catch (InterruptedException ex) {
-                                Thread.currentThread().interrupt();
-                            }
-                        }
+//                        move((i + 2) % 4);
+//                        while (moving) {
+//                            try {
+//                                Thread.sleep(1);
+//                            } catch (InterruptedException ex) {
+//                                Thread.currentThread().interrupt();
+//                            }
+//                        }
                         isVisited[yTemp][xTemp] = false;
                     }
                 }
