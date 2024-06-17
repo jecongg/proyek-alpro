@@ -104,14 +104,14 @@ public class PlayPanel extends JPanel {
                 if (xTemp >= 0 && yTemp >= 0 && xTemp < map[0].length && yTemp < map.length) {
                     if (!isVisited[yTemp][xTemp] && !map[yTemp][xTemp].equals("b") && !map[yTemp][xTemp].equals("k")) {
                         isVisited[yTemp][xTemp] = true;
-//                        move(i);
-//                        while (moving) {
-//                            try {
-//                                Thread.sleep(1);
-//                            } catch (InterruptedException ex) {
-//                                Thread.currentThread().interrupt();
-//                            }
-//                        }
+                        move(i);
+                        while (moving) {
+                            try {
+                                Thread.sleep(1);
+                            } catch (InterruptedException ex) {
+                                Thread.currentThread().interrupt();
+                            }
+                        }
                         int temp = 0;
                         if ("a".equals(map[yTemp][xTemp])) {
                             temp = backtrack(xTemp, yTemp, langkah + 1, lives - 1, false);
@@ -190,14 +190,14 @@ public class PlayPanel extends JPanel {
                                 tempLangkah = temp;
                             }
                         }
-//                        move((i + 2) % 4);
-//                        while (moving) {
-//                            try {
-//                                Thread.sleep(1);
-//                            } catch (InterruptedException ex) {
-//                                Thread.currentThread().interrupt();
-//                            }
-//                        }
+                        move((i + 2) % 4);
+                        while (moving) {
+                            try {
+                                Thread.sleep(1);
+                            } catch (InterruptedException ex) {
+                                Thread.currentThread().interrupt();
+                            }
+                        }
                         isVisited[yTemp][xTemp] = false;
                     }
                 }
@@ -221,13 +221,16 @@ public class PlayPanel extends JPanel {
     }
     
     public void replay(){
+        backtrackButton.setEnabled(false);
         worldPlayerX=startPlayerX*tileSize;
         worldPlayerY=startPlayerY*tileSize;
         int x=startPlayerX;
         int y=startPlayerY;
+        int lives=4;
         repaint();
         for(int i=1; i<tercepatX.size(); i++){
             int move=0;
+            health=healthImage[lives];
             if(tercepatY.get(i)<y){
                 move=0;
             }
@@ -247,10 +250,20 @@ public class PlayPanel extends JPanel {
                     Thread.currentThread().interrupt();
                 }
             }
+            if(map[tercepatY.get(i)][tercepatX.get(i)].equals("h")){
+                lives++;
+                if(lives>4){
+                    lives=4;
+                }
+            }
+            else if(map[tercepatY.get(i)][tercepatX.get(i)].equals("a")){
+                lives--;
+            }
             x=tercepatX.get(i);
             y=tercepatY.get(i);
             move(move);
         }
+        backtrackButton.setEnabled(true);
     }
 
     public void importGambar() {

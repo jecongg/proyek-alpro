@@ -93,6 +93,26 @@ public class Editor extends javax.swing.JFrame {
                 while (s.hasNextLine()) {
                     fileBentukString.add(s.nextLine());
                 }
+                if(fileName.equals("")){
+                    for(int i=0; i<15; i++){
+                        listTile.add(new ArrayList<>());
+                        for(int j=0; j<16; j++){
+                            Tile p = buatTile();
+                            template.add(p);
+                            listTile.get(i).add(p);
+                        }
+                    }
+                }
+                else{
+                    for(int i=0; i<fileBentukString.size(); i++){
+                        listTile.add(new ArrayList<>());
+                        for(int j=0; j<fileBentukString.get(0).split(" ").length; j++){
+                            Tile p = buatTile();
+                            template.add(p);
+                            listTile.get(i).add(p);
+                        }
+                    }
+                }
                 for (int i = 0; i < fileBentukString.size(); i++) {
                     for (int j = 0; j < fileBentukString.get(0).split(" ").length; j++) {
                         String[] temp = fileBentukString.get(i).split(" ");
@@ -117,15 +137,9 @@ public class Editor extends javax.swing.JFrame {
     
     public void initAwal(){
         bawahButton.setText("\u2227");
-        for(int i=0; i<15; i++){
-            listTile.add(new ArrayList<>());
-            for(int j=0; j<16; j++){
-                Tile p = buatTile();
-                template.add(p);
-                listTile.get(i).add(p);
-            }
-        }
-        printTile();
+        
+        
+    
         int counter=0;
         for(int j=0; j<5; j++){
             for(int i=0; i<2; i++){
