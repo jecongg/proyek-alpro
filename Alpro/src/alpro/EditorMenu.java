@@ -20,19 +20,20 @@ import java.io.File;
  */
 public class EditorMenu extends javax.swing.JFrame{
     File[] listOfFiles;
+    JFrame thisFrame;
     
     String filedipilih;
     
     public EditorMenu() {
+        thisFrame=this;
         initAwal();
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
 
-    // Method to read files from the directory
     public void bacaFile() {
-        File folder = new File("src/File/"); // Ensure this path is correct
+        File folder = new File("src/File/");
         if (folder.exists() && folder.isDirectory()) {
             listOfFiles = folder.listFiles();
             if (listOfFiles != null) {
@@ -56,13 +57,12 @@ public class EditorMenu extends javax.swing.JFrame{
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
                 JButton button = new JButton(file.getName());
-                // Add an ActionListener to handle button clicks
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // Handle button click
                         Editor p = new Editor(file.getName());
                         p.main();
+                        thisFrame.dispose();
                     }
                 });
                 panel.add(button);
@@ -71,14 +71,11 @@ public class EditorMenu extends javax.swing.JFrame{
             System.out.println("No files found.");
         }
 
-        // Create a JScrollPane and add the panel to it
         JScrollPane scrollPane = new JScrollPane(panel);
 
-        // Ensure the scrollbars always appear
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        // Add the JScrollPane to the frame
         this.add(scrollPane, BorderLayout.CENTER);
         scrollPane.setBounds(10,70,430,380);
         this.revalidate();
