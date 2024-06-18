@@ -20,7 +20,7 @@ public class PlayPanel extends JPanel {
     BufferedImage rumput, api, es, player, teleport, heal, start, goal, batu, trap, health, water;
     BufferedImage[] up, left, down, right, healthImage;
     String namaFile;
-    int tileSize = 70;
+    int tileSize = 30;
     int interval = 1;
     int tambah = 1;
     int worldPlayerX, worldPlayerY, screenPlayerX, screenPlayerY;
@@ -104,7 +104,7 @@ public class PlayPanel extends JPanel {
                 if (xTemp >= 0 && yTemp >= 0 && xTemp < map[0].length && yTemp < map.length) {
                     if (!isVisited[yTemp][xTemp] && !map[yTemp][xTemp].equals("b") && !map[yTemp][xTemp].equals("k")) {
                         isVisited[yTemp][xTemp] = true;
-//                        move(i);
+                        move(i);
                         while (moving) {
                             try {
                                 Thread.sleep(1);
@@ -190,7 +190,7 @@ public class PlayPanel extends JPanel {
                                 tempLangkah = temp;
                             }
                         }
-//                        move((i + 2) % 4);
+                        move((i + 2) % 4);
                         while (moving) {
                             try {
                                 Thread.sleep(1);
@@ -210,7 +210,7 @@ public class PlayPanel extends JPanel {
             if (cek) {
                 return tempLangkah;
             }
-            return -1;
+            return -1; 
         }
     }
     

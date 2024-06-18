@@ -93,26 +93,26 @@ public class Editor extends javax.swing.JFrame {
                 while (s.hasNextLine()) {
                     fileBentukString.add(s.nextLine());
                 }
-                if(fileName.equals("")){
-                    for(int i=0; i<15; i++){
+                
+                
+                    int baris=fileBentukString.size();
+                    int kolom=fileBentukString.get(0).split(" ").length;
+                    if(fileBentukString.size()<=15){
+                        baris=15;
+                    }
+                    if(fileBentukString.get(0).split(" ").length<=16){
+                        kolom=16;
+                    }
+                    
+                    for(int i=0; i<baris; i++){
                         listTile.add(new ArrayList<>());
-                        for(int j=0; j<16; j++){
+                        for(int j=0; j<kolom; j++){
                             Tile p = buatTile();
                             template.add(p);
                             listTile.get(i).add(p);
                         }
                     }
-                }
-                else{
-                    for(int i=0; i<fileBentukString.size(); i++){
-                        listTile.add(new ArrayList<>());
-                        for(int j=0; j<fileBentukString.get(0).split(" ").length; j++){
-                            Tile p = buatTile();
-                            template.add(p);
-                            listTile.get(i).add(p);
-                        }
-                    }
-                }
+                
                 for (int i = 0; i < fileBentukString.size(); i++) {
                     for (int j = 0; j < fileBentukString.get(0).split(" ").length; j++) {
                         String[] temp = fileBentukString.get(i).split(" ");
@@ -131,6 +131,17 @@ public class Editor extends javax.swing.JFrame {
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(PlayPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        else{
+            for(int i=0; i<15; i++){
+                listTile.add(new ArrayList<>());
+                for(int j=0; j<16; j++){
+                    Tile p = buatTile();
+                    template.add(p);
+                    listTile.get(i).add(p);
+                }
+            }
+            printTile();
         }
         
     }

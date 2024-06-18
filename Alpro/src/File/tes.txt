@@ -1,0 +1,6 @@
+s r r r r g 
+r 0 r r r r 
+a r r r r 0 
+a r r r t e 
+r r h r r e 
+b b b b b b 
