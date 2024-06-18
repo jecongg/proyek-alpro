@@ -104,7 +104,7 @@ public class PlayPanel extends JPanel {
                 if (xTemp >= 0 && yTemp >= 0 && xTemp < map[0].length && yTemp < map.length) {
                     if (!isVisited[yTemp][xTemp] && !map[yTemp][xTemp].equals("b") && !map[yTemp][xTemp].equals("k")) {
                         isVisited[yTemp][xTemp] = true;
-                        move(i);
+//                        move(i);
                         while (moving) {
                             try {
                                 Thread.sleep(1);
@@ -118,16 +118,16 @@ public class PlayPanel extends JPanel {
                         } 
                         else if ("h".equals(map[yTemp][xTemp])) {
                             map[yTemp][xTemp] = "r";
-                            boolean tempVisited[][] = isVisited;
-                            isVisited=new boolean[map.length][map[0].length];
+//                            boolean tempVisited[][] = isVisited;
+//                            isVisited=new boolean[map.length][map[0].length];
                             temp = backtrack(xTemp, yTemp, langkah + 1, lives + 1, false);
-                            isVisited=tempVisited;
+//                            isVisited=tempVisited;
                             map[yTemp][xTemp] = "h";
                         }
                         else if ("t".equals(map[yTemp][xTemp])) {
                             map[yTemp][xTemp] = "r";
-                            boolean tempVisited[][] = isVisited;
-                            isVisited=new boolean[map.length][map[0].length];
+//                            boolean tempVisited[][] = isVisited;
+//                            isVisited=new boolean[map.length][map[0].length];
                             int tempX=worldPlayerX;
                             int tempY=worldPlayerY;
                             worldPlayerX=startPlayerX*tileSize;
@@ -137,7 +137,7 @@ public class PlayPanel extends JPanel {
                             worldPlayerX=tempX;
                             worldPlayerY=tempY;
                             repaint();
-                            isVisited=tempVisited;
+//                            isVisited=tempVisited;
                             map[yTemp][xTemp] = "t";
                         }
                         else if ("e".equals(map[yTemp][xTemp])) {
@@ -167,13 +167,13 @@ public class PlayPanel extends JPanel {
                             String tempTele=map[yTemp][xTemp];
                             map[yTemp][xTemp]="r";
                             map[yCari][xCari]="r";
-                            boolean[][] tempVisited=isVisited.clone();
-                            isVisited=new boolean[map.length][map[0].length];
+//                            boolean[][] tempVisited=isVisited.clone();
+//                            isVisited=new boolean[map.length][map[0].length];
                             temp = backtrack(xCari, yCari, langkah + 1, lives, false);
                             worldPlayerX=tempX;
                             worldPlayerY=tempY;
                             repaint();
-                            isVisited=tempVisited;
+//                            isVisited=tempVisited;
                             map[yTemp][xTemp]=tempTele;
                             map[yCari][xCari]=tempTele;
                         }
@@ -190,7 +190,7 @@ public class PlayPanel extends JPanel {
                                 tempLangkah = temp;
                             }
                         }
-                        move((i + 2) % 4);
+//                        move((i + 2) % 4);
                         while (moving) {
                             try {
                                 Thread.sleep(1);
@@ -212,6 +212,14 @@ public class PlayPanel extends JPanel {
             }
             return -1;
         }
+    }
+    
+    public boolean[][] cloneArray(){
+        boolean temp[][] = isVisited.clone();
+        for(int i=1; i<10; i++){
+            temp[jalanY.get(jalanY.size()-i)][jalanX.get(jalanX.size()-i)]=false;
+        }
+        return temp;
     }
     
     public void mulaiReplay() {
@@ -261,7 +269,13 @@ public class PlayPanel extends JPanel {
             }
             x=tercepatX.get(i);
             y=tercepatY.get(i);
-            move(move);
+            if(map[tercepatY.get(i)][tercepatX.get(i)].equals("t") || Character.isDigit(map[tercepatY.get(i)][tercepatX.get(i)].charAt(0))){
+                worldPlayerX=x*tileSize;
+                worldPlayerY=y*tileSize;
+            }
+            else{
+                move(move);
+            }
         }
         backtrackButton.setEnabled(true);
     }

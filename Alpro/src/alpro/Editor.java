@@ -137,9 +137,6 @@ public class Editor extends javax.swing.JFrame {
     
     public void initAwal(){
         bawahButton.setText("\u2227");
-        
-        
-    
         int counter=0;
         for(int j=0; j<5; j++){
             for(int i=0; i<2; i++){
