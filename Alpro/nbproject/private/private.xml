@@ -3,18 +3,31 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/Background/MenuPlayBG.png</file>
-            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/alpro/PlayPanel.java</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/Tile.java</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/File/map2.txt</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/File/map%203.txt</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/Finish.java</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/Batu.java</file>
             <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/alpro/EdgeTele.java</file>
             <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/alpro/PlayMenu.java</file>
-            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/Background/MainBG.jpg</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/File/map3.txt</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/Es.java</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/alpro/EditorMenu.java</file>
             <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/File/coba.txt</file>
             <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/Start.java</file>
             <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/alpro/Play.java</file>
             <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/SpringTrap.java</file>
             <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/File/output.txt</file>
-            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/alpro/MainMenu.java</file>
             <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/Teleport.java</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/Background/MenuPlayBG.png</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/Eraser.java</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/Api.java</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/alpro/PlayPanel.java</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/Background/MainBG.jpg</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/Heal.java</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/tile/Rumput.java</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/File/map1.txt</file>
+            <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/alpro/MainMenu.java</file>
             <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/alpro/Editor.java</file>
             <file>file:/C:/Users/NIKO/Documents/GitHub/proyekalpro/Alpro/src/alpro/Alpro.java</file>
         </group>
